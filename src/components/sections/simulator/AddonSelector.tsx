@@ -30,7 +30,7 @@ export function AddonSelector({
           return (
             <label
               key={addon.id}
-              className={`flex items-start gap-3 p-4 rounded-[2px] cursor-pointer transition-all ${
+              className={`flex items-start gap-3 p-4 rounded-[2px] cursor-pointer transition-all active:scale-[0.98] ${
                 checked
                   ? 'bg-white border-2 border-[#111113] shadow-[0_3px_0px_#111113] sm:shadow-[3px_3px_0px_#111113]'
                   : 'bg-[#F8F6F2] border-2 border-[#111113]/25 hover:border-[#111113]'

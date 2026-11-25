@@ -18,7 +18,7 @@ export function MobileBottomBar({
   onOpenCartModal,
 }: MobileBottomBarProps) {
   return (
-    <div className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-[#0B0B0D]/98 backdrop-blur-xs border-t-2 border-[#27272F] shadow-[0_-8px_28px_-8px_rgba(0,0,0,0.92)] px-3 pt-2.5 pb-safe">
+    <div className="animate-bar-slide-up md:hidden fixed bottom-0 inset-x-0 z-40 bg-[#0B0B0D]/98 backdrop-blur-xs border-t-2 border-[#27272F] shadow-[0_-8px_28px_-8px_rgba(0,0,0,0.92)] px-3 pt-2.5 pb-safe">
       <div className="flex items-center gap-2 w-full">
         <a
           href="#resumo-pedido"
@@ -28,7 +28,10 @@ export function MobileBottomBar({
           <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#A1A1AA] leading-none truncate">
             {sizeLabel} • OS
           </span>
-          <span className="font-mono text-sm font-bold tabular-nums text-[#0EA5E9] leading-tight mt-1">
+          <span
+            key={totalPrice}
+            className="animate-price-flash font-mono text-sm font-bold tabular-nums text-[#0EA5E9] leading-tight mt-1 inline-block origin-left"
+          >
             {formatBRL(totalPrice)}
           </span>
         </a>

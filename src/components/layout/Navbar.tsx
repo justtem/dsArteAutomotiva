@@ -107,11 +107,11 @@ export function Navbar({
         </div>
       </div>
 
-      {/* Menu Mobile */}
+      {/* Menu Mobile com animação suave de descida */}
       {mobileMenuOpen && (
         <div
           id="mobile-nav-drawer"
-          className="animate-panel-switch xl:hidden bg-[#0B0B0D] border-t border-[#27272F] px-4 py-4 shadow-2xl"
+          className="animate-drawer-in xl:hidden bg-[#0B0B0D] border-t border-[#27272F] px-4 py-4 shadow-2xl"
         >
           <div className="flex items-center justify-between gap-2 pb-3 mb-3 border-b border-[#27272F]">
             <div className="flex items-center gap-2">

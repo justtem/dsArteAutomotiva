@@ -325,7 +325,7 @@ export function ProcessCarInspector({
             </text>
           </svg>
 
-          {/* Pinos interativos 01 a 04 (44x44px para polegar) */}
+          {/* Pinos interativos 01 a 04 (44x44px para polegar + anel de pulso técnico no ativo) */}
           {PROCESS_HOTSPOTS.map((stage) => {
             const isSelected = stage.id === activeHotspotId;
             return (
@@ -336,10 +336,16 @@ export function ProcessCarInspector({
                 style={{ left: `${stage.hotspot.x}%`, top: `${stage.hotspot.y}%` }}
                 aria-label={`Inspecionar especialidade ${stage.number}: ${stage.title}`}
                 aria-pressed={isSelected}
-                className="absolute -translate-x-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0EA5E9] rounded-[2px]"
+                className="absolute -translate-x-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0EA5E9] rounded-[2px] active:scale-95 transition-transform"
               >
+                {isSelected && (
+                  <span
+                    aria-hidden="true"
+                    className="animate-pin-ping absolute w-8 h-8 rounded-[2px] border border-[#0EA5E9] pointer-events-none"
+                  />
+                )}
                 <span
-                  className={`font-mono w-8 h-8 rounded-[2px] flex items-center justify-center text-xs font-bold tabular-nums transition-all duration-150 ${
+                  className={`relative font-mono w-8 h-8 rounded-[2px] flex items-center justify-center text-xs font-bold tabular-nums transition-all duration-200 ${
                     isSelected
                       ? 'bg-[#0EA5E9] text-[#0B0B0D] border-2 border-[#F5F5F4] scale-110 shadow-lg'
                       : 'bg-[#141418]/95 text-[#F5F5F4] border border-[#0EA5E9] hover:bg-[#1C1C22]'

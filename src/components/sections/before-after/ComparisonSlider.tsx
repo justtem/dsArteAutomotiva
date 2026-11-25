@@ -1,4 +1,4 @@
-import { useCallback, useRef, type PointerEvent } from 'react';
+import { useCallback, useRef, useState, type PointerEvent } from 'react';
 import { MoveHorizontal } from 'lucide-react';
 import type { BeforeAfterCase } from '../../../types';
 import { BeforeAfterIllustration } from '../../illustrations';
@@ -20,6 +20,8 @@ export function ComparisonSlider({
 }: ComparisonSliderProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const draggingRef = useRef(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   const resolvedBeforeUrl = customBeforeUrl || activeCase.beforeImageUrl || null;
   const resolvedAfterUrl = customAfterUrl || activeCase.afterImageUrl || null;
@@ -45,6 +47,8 @@ export function ComparisonSlider({
 
   const handlePointerDown = (e: PointerEvent<HTMLDivElement>) => {
     draggingRef.current = true;
+    setIsDragging(true);
+    setHasInteracted(true);
     e.currentTarget.setPointerCapture?.(e.pointerId);
     updateFromClientX(e.clientX);
   };
@@ -57,7 +61,14 @@ export function ComparisonSlider({
   const handlePointerUp = (e: PointerEvent<HTMLDivElement>) => {
     if (!draggingRef.current) return;
     draggingRef.current = false;
+    setIsDragging(false);
     e.currentTarget.releasePointerCapture?.(e.pointerId);
+  };
+
+  const handlePresetSelect = (val: number) => {
+    setHasInteracted(true);
+    setIsDragging(false);
+    onSplitChange(val);
   };
 
   return (
@@ -86,9 +97,11 @@ export function ComparisonSlider({
           )}
         </div>
 
-        {/* Camada recortada: ANTES */}
+        {/* Camada recortada: ANTES (deslize suave ao tocar nos atalhos mobile; 0ms ao arrastar com o dedo) */}
         <div
-          className="absolute inset-0 pointer-events-none"
+          className={`absolute inset-0 pointer-events-none ${
+            isDragging ? '' : 'transition-[clip-path] duration-300 ease-out'
+          }`}
           style={{ clipPath: `inset(0 ${100 - splitPercent}% 0 0)` }}
         >
           {resolvedBeforeUrl ? (
@@ -111,13 +124,24 @@ export function ComparisonSlider({
           Depois
         </span>
 
-        {/* Divisor vertical reto e alça mecânica seca */}
+        {/* Divisor vertical reto e alça mecânica seca com convite animado antes do primeiro arraste */}
         <div
-          className="absolute top-0 bottom-0 w-[3px] bg-[#0EA5E9] pointer-events-none"
+          className={`absolute top-0 bottom-0 w-[3px] bg-[#0EA5E9] pointer-events-none ${
+            isDragging ? '' : 'transition-[left] duration-300 ease-out'
+          }`}
           style={{ left: `${splitPercent}%` }}
         >
-          <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-11 h-11 rounded-[2px] bg-[#F8F6F2] border-2 border-[#111113] text-[#111113] flex items-center justify-center shadow-[3px_3px_0px_#111113]">
-            <MoveHorizontal className="w-4.5 h-4.5 text-[#111113]" aria-hidden="true" />
+          <div
+            className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-11 h-11 rounded-[2px] bg-[#F8F6F2] border-2 border-[#111113] text-[#111113] flex items-center justify-center shadow-[3px_3px_0px_#111113] transition-transform duration-150 ${
+              isDragging ? 'scale-110' : ''
+            }`}
+          >
+            <MoveHorizontal
+              className={`w-4.5 h-4.5 text-[#111113] ${
+                hasInteracted ? '' : 'animate-handle-nudge'
+              }`}
+              aria-hidden="true"
+            />
           </div>
         </div>
 
@@ -127,13 +151,16 @@ export function ComparisonSlider({
           min={0}
           max={100}
           value={splitPercent}
-          onChange={(e) => onSplitChange(Number(e.target.value))}
+          onChange={(e) => {
+            setHasInteracted(true);
+            onSplitChange(Number(e.target.value));
+          }}
           aria-label={`Comparar Antes e Depois de ${activeCase.tabLabel}. Use as setas esquerda e direita ou arraste.`}
           className="sr-only"
         />
       </div>
 
-      {/* Rodapé técnico do quadro com botões rápidos mobile, nota voltada ao cliente e proporção */}
+      {/* Rodapé técnico do quadro com botões rápidos mobile (deslize suave), nota e proporção */}
       <div className="mt-4 flex flex-wrap items-center justify-between gap-2 text-xs text-[#3F3F46]">
         <div className="flex items-center gap-1.5 sm:hidden">
           {[
@@ -144,8 +171,8 @@ export function ComparisonSlider({
             <button
               key={preset.label}
               type="button"
-              onClick={() => onSplitChange(preset.val)}
-              className={`font-mono px-2.5 py-1.5 rounded-[2px] text-[11px] font-bold border-2 transition-colors ${
+              onClick={() => handlePresetSelect(preset.val)}
+              className={`font-mono px-2.5 py-1.5 rounded-[2px] text-[11px] font-bold border-2 transition-all active:scale-95 ${
                 Math.abs(splitPercent - preset.val) <= 8
                   ? 'bg-[#111113] border-[#111113] text-[#F8F6F2]'
                   : 'bg-[#F8F6F2] border-[#111113] text-[#111113]'

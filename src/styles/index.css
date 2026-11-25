@@ -118,6 +118,7 @@ input {
 
 .btn-dark-primary {
   position: relative;
+  overflow: hidden;
   background-color: #0EA5E9;
   color: #0B0B0D;
   border: none;
@@ -142,7 +143,7 @@ input {
 }
 
 .btn-dark-primary:active {
-  transform: scale(0.985);
+  transform: scale(0.965);
 }
 
 .btn-dark-primary:focus-visible {
@@ -220,6 +221,8 @@ input {
 }
 
 .btn-cyan-stamp {
+  position: relative;
+  overflow: hidden;
   background-color: #0EA5E9;
   color: #111113;
   border: 2px solid #111113;
@@ -246,8 +249,8 @@ input {
 }
 
 .btn-cyan-stamp:active {
-  transform: translate(1px, 1px);
-  box-shadow: 1px 1px 0px #111113;
+  transform: translateY(2px) scale(0.985);
+  box-shadow: 0 1px 0px #111113;
 }
 
 .btn-cyan-stamp:focus-visible {
@@ -309,13 +312,113 @@ input {
 }
 
 /* ============================================================================
- * ANIMAÇÕES DE INTERFACE
+ * ANIMAÇÕES DE INTERFACE & MICROINTERAÇÕES PARA CELULAR (60FPS GPU)
  * ============================================================================ */
+
+@keyframes touchCoatSheen {
+  0%, 74%, 100% {
+    transform: translateX(-160%) skewX(-22deg);
+  }
+  94% {
+    transform: translateX(260%) skewX(-22deg);
+  }
+}
+
+/* Reflexo discreto de verniz sobre CTAs sólidos em telas touch (celular/tablet) */
+@media (hover: none) {
+  .btn-dark-primary::after,
+  .btn-cyan-stamp::after {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 48%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.34) 50%,
+      transparent 100%
+    );
+    transform: translateX(-160%) skewX(-22deg);
+    animation: touchCoatSheen 5.2s ease-in-out infinite;
+    pointer-events: none;
+  }
+}
+
+@keyframes heroStaggerIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pinRadarPing {
+  0% {
+    transform: scale(1);
+    opacity: 0.72;
+  }
+  75%, 100% {
+    transform: scale(1.65);
+    opacity: 0;
+  }
+}
+
+@keyframes handleNudgeX {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px);
+  }
+  75% {
+    transform: translateX(3px);
+  }
+}
+
+@keyframes barSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes priceFlashPop {
+  0% {
+    transform: scale(0.88);
+    color: #F97316;
+  }
+  55% {
+    transform: scale(1.1);
+    color: #F5F5F4;
+  }
+  100% {
+    transform: scale(1);
+    color: #0EA5E9;
+  }
+}
+
+@keyframes drawerDropIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 @keyframes panelSwitchIn {
   from {
     opacity: 0;
-    transform: translateY(5px);
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
@@ -335,7 +438,7 @@ input {
 @keyframes modalSheetUp {
   from {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(32px);
   }
   to {
     opacity: 1;
@@ -346,7 +449,7 @@ input {
 @keyframes toastSlideUp {
   from {
     opacity: 0;
-    transform: translate(-50%, 12px);
+    transform: translate(-50%, 14px);
   }
   to {
     opacity: 1;
@@ -356,34 +459,58 @@ input {
 
 @keyframes badgePop {
   0% {
-    transform: scale(0.82);
+    transform: scale(0.8);
   }
   65% {
-    transform: scale(1.12);
+    transform: scale(1.16);
   }
   100% {
     transform: scale(1);
   }
 }
 
+.animate-hero-in {
+  animation: heroStaggerIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-pin-ping {
+  animation: pinRadarPing 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.animate-handle-nudge {
+  animation: handleNudgeX 2.1s ease-in-out infinite;
+}
+
+.animate-bar-slide-up {
+  animation: barSlideUp 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-price-flash {
+  animation: priceFlashPop 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.animate-drawer-in {
+  animation: drawerDropIn 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 .animate-panel-switch {
-  animation: panelSwitchIn 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: panelSwitchIn 0.24s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .animate-modal-backdrop {
-  animation: modalBackdropIn 0.18s ease-out both;
+  animation: modalBackdropIn 0.2s ease-out both;
 }
 
 .animate-modal-card {
-  animation: modalSheetUp 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: modalSheetUp 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .animate-toast-in {
-  animation: toastSlideUp 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: toastSlideUp 0.24s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .animate-badge-pop {
-  animation: badgePop 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: badgePop 0.26s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {

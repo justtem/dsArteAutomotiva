@@ -31,7 +31,7 @@ export function VehicleSizeSelector({ vehicleSize, onSelectSize }: VehicleSizeSe
               role="radio"
               aria-checked={isSelected}
               onClick={() => onSelectSize(size.id)}
-              className={`group p-4 rounded-[2px] text-left min-h-[100px] flex flex-col justify-between transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0369A1] ${
+              className={`group p-4 rounded-[2px] text-left min-h-[100px] flex flex-col justify-between transition-all active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0369A1] ${
                 isSelected
                   ? 'bg-[#111113] text-[#F8F6F2] border-2 border-[#111113] shadow-[3px_3px_0px_#0EA5E9]'
                   : 'bg-[#F8F6F2] text-[#111113] border-2 border-[#111113]/25 hover:border-[#111113]'

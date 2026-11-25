@@ -110,7 +110,7 @@ export function GalleryCard({
   }
 
   return (
-    <article className="group bg-[#141418] border border-[#27272F] hover:border-[#52525B] rounded-[2px] overflow-hidden flex flex-col h-full transition-colors">
+    <article className="group bg-[#141418] border border-[#27272F] hover:border-[#52525B] rounded-[2px] overflow-hidden flex flex-col h-full transition-all active:scale-[0.99]">
       <button
         type="button"
         onClick={(e) => onOpen(e.currentTarget)}
