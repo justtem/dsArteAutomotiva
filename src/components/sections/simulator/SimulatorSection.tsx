@@ -49,15 +49,15 @@ export function SimulatorSection({
         <ScrollReveal direction="up">
           <div className="max-w-2xl mb-8">
             <span className="text-xs font-bold uppercase tracking-[0.18em] text-[#38BDF8] block mb-2">
-              Simulador de Orçamento + WhatsApp
+              Simulador de Pintura & Estética + WhatsApp
             </span>
             <h2 className="font-display italic text-3xl sm:text-4xl font-bold tracking-tight text-white mb-2">
-              Escolha o porte do veículo e monte seu{' '}
-              <span className="text-hydro-dip pr-1">atendimento</span>.
+              Escolha a categoria e simule seu projeto de{' '}
+              <span className="text-hydro-dip pr-1">pintura</span>.
             </h2>
             <p className="text-sm text-[#94A3B8]">
-              Tabela demonstrativa editável no código. Os valores e prazos são atualizados
-              automaticamente ao trocar o porte do veículo.
+              Valores base de referência editáveis no código. Os valores e prazos estimados são
+              atualizados automaticamente conforme a categoria ou porte do veículo.
             </p>
           </div>
         </ScrollReveal>

@@ -42,7 +42,7 @@ export function QuoteSummaryPanel({ quoteSummary }: QuoteSummaryPanelProps) {
       <CardTopPaintDrip variant="cyan" />
       <div className="px-5 py-3.5 bg-[#0B0D12]/70 border-b border-white/10 flex items-center justify-between">
         <span className="text-xs font-bold uppercase tracking-[0.16em] text-[#38BDF8]">
-          Resumo do Pedido
+          Resumo da Pintura / Estética
         </span>
         <span className="text-xs font-mono font-semibold text-[#FB923C]">
           {quoteSummary.sizeLabel}
@@ -57,7 +57,7 @@ export function QuoteSummaryPanel({ quoteSummary }: QuoteSummaryPanelProps) {
               <span className="font-display italic text-base font-bold text-white block">
                 {quoteSummary.packageName}
               </span>
-              <span className="text-xs text-[#94A3B8]">Porte: {quoteSummary.sizeLabel}</span>
+              <span className="text-xs text-[#94A3B8]">Categoria: {quoteSummary.sizeLabel}</span>
             </div>
             <span className="font-semibold tabular-nums text-white whitespace-nowrap">
               {formatBRL(quoteSummary.packagePrice)}
@@ -144,8 +144,8 @@ export function QuoteSummaryPanel({ quoteSummary }: QuoteSummaryPanelProps) {
         </div>
 
         <p className="text-[11px] text-[#94A3B8] leading-relaxed">
-          Sem pagamento antecipado no site. O orçamento é confirmado no WhatsApp ou na avaliação
-          rápida do veículo na oficina.
+          Sem pagamento antecipado no site. O orçamento final é confirmado no WhatsApp ou na
+          avaliação técnica da peça/veículo na oficina.
         </p>
       </div>
     </aside>

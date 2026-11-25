@@ -80,16 +80,16 @@ export function HeroSection({ status, quickWhatsAppUrl }: HeroSectionProps) {
               </div>
 
               <h1 className="font-display italic text-center sm:text-left text-[33px] sm:text-5xl lg:text-[52px] font-bold tracking-tight leading-[1.07] text-white mb-4 sm:mb-5">
-                Lavagem técnica, proteção e{' '}
+                Estética automotiva, pintura e{' '}
                 <span className="font-drip not-italic text-hydro-dip inline-block">ARTE</span> no
                 detalhe.
               </h1>
 
               <p className="text-center sm:text-left text-sm sm:text-base text-[#CBD5E1] leading-relaxed mb-6 sm:mb-7">
-                Box coberto com hora marcada, pré-lavagem pH neutro, higienização interna e oficina
-                especialista em{' '}
+                Oficina de estética automotiva e customização com hora marcada, especialista em{' '}
                 <span className="text-[#38BDF8] font-semibold">
-                  Pintura Hidrográfica, Candy, Camaleão, Cristal 3D, Cromo, Flake e Aerografia
+                  Pintura Hidrográfica (WTP), Candy, Camaleão, Cristal 3D, Cromo, Flake,
+                  Termocrômica, Aerografia e Revitalização de Faróis
                 </span>
                 .
               </p>
@@ -101,7 +101,7 @@ export function HeroSection({ status, quickWhatsAppUrl }: HeroSectionProps) {
                   className="btn-liquid-coat btn-chrome-shine inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-white text-sm font-bold tracking-wide min-h-[52px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                 >
                   <SlidersHorizontal className="w-4 h-4" aria-hidden="true" />
-                  <span>Simular meu carro</span>
+                  <span>Simular pintura / estética</span>
                 </a>
 
                 <a

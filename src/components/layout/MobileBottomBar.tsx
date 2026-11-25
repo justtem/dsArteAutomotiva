@@ -23,10 +23,10 @@ export function MobileBottomBar({
         {/* Resumo ao vivo da simulação (tocar rola até o Resumo do Pedido) */}
         <a
           href="#resumo-pedido"
-          className="btn-chrome-dark flex flex-col justify-center px-3 py-1.5 rounded-xl min-h-[48px] shrink-0"
-          aria-label={`Ver resumo do orçamento: ${formatBRL(totalPrice)} para ${sizeLabel}`}
+          className="btn-chrome-dark flex flex-col justify-center px-3 py-1.5 rounded-xl min-h-[48px] max-w-[126px] shrink-0"
+          aria-label={`Ver resumo da pintura: ${formatBRL(totalPrice)} para ${sizeLabel}`}
         >
-          <span className="text-[10px] font-bold uppercase tracking-wider text-[#94A3B8] leading-none">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-[#94A3B8] leading-none truncate">
             {sizeLabel} • Ver
           </span>
           <span className="font-display italic text-base font-bold tabular-nums text-[#38BDF8] leading-tight mt-0.5">
@@ -39,10 +39,10 @@ export function MobileBottomBar({
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-liquid-coat btn-chrome-shine flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-3 rounded-xl text-white text-xs font-bold min-h-[48px]"
+          className="btn-liquid-coat btn-chrome-shine flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-3 rounded-xl text-white text-xs font-bold min-h-[48px] min-w-0"
         >
           <MessageCircle className="w-4 h-4 shrink-0" aria-hidden="true" />
-          <span className="truncate">Agendar WhatsApp</span>
+          <span className="truncate">Orçar Pintura</span>
         </a>
 
         {/* Atalho de Lista de Orçamento (quando houver itens) ou Rota GPS */}

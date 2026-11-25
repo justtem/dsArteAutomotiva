@@ -14,12 +14,14 @@ export function VehicleSizeSelector({ vehicleSize, onSelectSize }: VehicleSizeSe
         <span className="w-6 h-6 rounded-lg bg-gradient-to-br from-[#29B6F6] to-[#0284C7] text-white text-xs font-bold tabular-nums flex items-center justify-center shadow">
           1
         </span>
-        <h3 className="text-sm font-bold uppercase tracking-wider text-white">Porte do veículo</h3>
+        <h3 className="text-sm font-bold uppercase tracking-wider text-white">
+          Categoria ou porte do veículo
+        </h3>
       </div>
 
       <div
         role="radiogroup"
-        aria-label="Porte do veículo"
+        aria-label="Categoria ou porte do veículo"
         className="grid grid-cols-2 sm:grid-cols-4 gap-3"
       >
         {VEHICLE_SIZES.map((size) => {

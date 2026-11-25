@@ -8,8 +8,8 @@ import type {
 import { calculateQuoteSummary } from '../utils';
 
 export function useQuoteSimulator() {
-  const [vehicleSize, setVehicleSize] = useState<VehicleSizeId>('hatch');
-  const [selectedPackageId, setSelectedPackageId] = useState<ServicePackageId>('detalhada');
+  const [vehicleSize, setVehicleSize] = useState<VehicleSizeId>('moto');
+  const [selectedPackageId, setSelectedPackageId] = useState<ServicePackageId>('hidrografica-wtp');
   const [selectedAddonIds, setSelectedAddonIds] = useState<ServiceAddonId[]>([]);
   const [periodPreference, setPeriodPreference] = useState<PeriodPreference>('Manhã');
   const [includePickup, setIncludePickup] = useState<boolean>(false);

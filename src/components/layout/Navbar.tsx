@@ -5,10 +5,10 @@ import type { BusinessStatus } from '../../types';
 import { BrandLogo } from '../ui';
 
 const NAV_LINKS = [
-  { href: '#processo', label: 'Processo' },
+  { href: '#processo', label: 'Especialidades' },
   { href: '#antes-depois', label: 'Antes e Depois' },
   { href: '#simulador', label: 'Simulador' },
-  { href: '#galeria', label: 'Galeria & Custom' },
+  { href: '#galeria', label: 'Galeria & Pinturas' },
   { href: '#localizacao', label: 'Localização' },
 ];
 

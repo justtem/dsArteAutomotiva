@@ -52,14 +52,14 @@ export function calculateQuoteSummary({
 
   const cleanModel = sanitizeText(vehicleModel).trim();
   const lines = [
-    `Olá ${BUSINESS_CONFIG.ownerName.split(' ')[0]}! Vim pelo site da ${BUSINESS_CONFIG.name} e gostaria de agendar:`,
-    `- Porte: ${sizeObj.label}${cleanModel ? ` (${cleanModel})` : ''}`,
-    `- Pacote: ${pkgObj.name} (${formatBRL(packagePrice)})`,
+    `Olá ${BUSINESS_CONFIG.ownerName.split(' ')[0]}! Vim pelo site da ${BUSINESS_CONFIG.name} e gostaria de simular um orçamento de pintura / estética:`,
+    `- Categoria / Porte: ${sizeObj.label}${cleanModel ? ` (${cleanModel})` : ''}`,
+    `- Serviço principal: ${pkgObj.name} (base ${formatBRL(packagePrice)})`,
   ];
 
   if (selectedAddons.length > 0) {
     lines.push(
-      `- Adicionais: ${selectedAddons
+      `- Personalizações / Adicionais: ${selectedAddons
         .map((a) => `${a.name} (${formatBRL(a.computedPrice)})`)
         .join(', ')}`
     );
@@ -69,11 +69,11 @@ export function calculateQuoteSummary({
     lines.push(`- Leva e Traz local: Sim (+${formatBRL(BUSINESS_CONFIG.pickupFee)})`);
   }
 
-  lines.push(`- Período preferido: ${periodPreference}`);
+  lines.push(`- Período preferido para avaliação/entrega: ${periodPreference}`);
   lines.push(
-    `- Estimativa no site: ${formatBRL(totalPrice)} (tempo médio: ${formatDuration(totalMinutes)})`
+    `- Estimativa base no site: ${formatBRL(totalPrice)} (tempo estimado: ${formatDuration(totalMinutes)})`
   );
-  lines.push('Quais horários vocês têm disponíveis?');
+  lines.push('Podemos avaliar minha peça/veículo e confirmar disponibilidade?');
 
   const message = lines.join('\n');
 

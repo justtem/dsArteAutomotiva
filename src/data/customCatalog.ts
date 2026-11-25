@@ -22,7 +22,7 @@ export const SPECIALTY_HIGHLIGHTS: SpecialtyHighlight[] = [
   {
     id: 'spec-estetica-farois',
     title: 'Estética & Faróis',
-    description: 'Lavagem técnica, revitalização óptica de faróis e acabamento com verniz fosco',
+    description: 'Polimento técnico, revitalização óptica de faróis e acabamento com verniz fosco',
     iconKey: 'sparkles',
   },
 ];

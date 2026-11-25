@@ -25,12 +25,14 @@ export function PackageSelector({
         <span className="w-6 h-6 rounded-lg bg-gradient-to-br from-[#29B6F6] to-[#0284C7] text-white text-xs font-bold tabular-nums flex items-center justify-center shadow">
           2
         </span>
-        <h3 className="text-sm font-bold uppercase tracking-wider text-white">Pacote de lavagem</h3>
+        <h3 className="text-sm font-bold uppercase tracking-wider text-white">
+          Modalidade de pintura & estética
+        </h3>
       </div>
 
       <div
         role="radiogroup"
-        aria-label="Pacotes de lavagem"
+        aria-label="Modalidades de pintura e estética"
         className="surface-gunmetal rounded-2xl divide-y divide-white/10 overflow-hidden"
       >
         {SERVICE_PACKAGES.map((pkg) => {
@@ -38,7 +40,7 @@ export function PackageSelector({
           const isExpanded = expandedPackageId === pkg.id;
           const price = pkg.prices[vehicleSize];
           const duration = pkg.durationMinutes[vehicleSize];
-          const isPopular = pkg.id === 'detalhada';
+          const isPopular = pkg.id === 'hidrografica-wtp';
 
           return (
             <div
@@ -54,7 +56,7 @@ export function PackageSelector({
                   <label className="flex items-start gap-3 cursor-pointer flex-1 min-w-0">
                     <input
                       type="radio"
-                      name="wash-package"
+                      name="paint-package"
                       checked={isSelected}
                       onChange={() => onSelectPackage(pkg.id)}
                       className="mt-1 w-4 h-4 accent-[#29B6F6] cursor-pointer shrink-0"

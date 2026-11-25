@@ -7,62 +7,15 @@ import type { BeforeAfterCase } from '../types';
  */
 export const BEFORE_AFTER_CASES: BeforeAfterCase[] = [
   {
-    id: 'higienizacao-interna',
-    tabLabel: 'Higienização Interna',
-    title: 'Extração profunda de estofados e cabine',
-    diagnosis:
-      'Manchas de líquidos no assento, escurecimento por suor nas abas laterais, poeira incrustada nas costuras e odor retido.',
-    process:
-      'Aspiração de partículas, aplicação de flotador pH balanceado, escovação de cerdas macias, extração a vácuo e secagem assistida.',
-    averageTime: '3h a 5h no box',
-    recommendedPackageId: 'combo-completa',
-    recommendedAddonId: 'oxi-ozonio',
-  },
-  {
-    id: 'revitalizacao-pintura',
-    tabLabel: 'Revitalização de Pintura',
-    title: 'Correção leve de brilho e proteção do verniz',
-    diagnosis:
-      'Pintura escura fosca, marcas circulares (swirls) de lavagens comuns, pontos de seiva e ausência de repelência à água.',
-    process:
-      'Pré-lavagem em snow foam, descontaminação superficial, etapa de lustro técnico controlado e aplicação de selante sintético.',
-    averageTime: '3h a 4h no box',
-    recommendedPackageId: 'detalhada',
-    recommendedAddonId: 'cera-selante',
-  },
-  {
-    id: 'restauracao-farol',
-    tabLabel: 'Restauração de Farol',
-    title: 'Clareamento óptico e proteção UV de lentes',
-    diagnosis:
-      'Camada externa de policarbonato queimada pelo sol, aspecto amarelado opaco e perda de alcance do facho em estradas à noite.',
-    process:
-      'Mascaramento completo do para-choque, lixamento técnico escalonado, polimento óptico e selagem contra raios UV.',
-    averageTime: '1h (o par)',
-    recommendedPackageId: 'tecnica',
-    recommendedAddonId: 'vitrificacao-farois',
-  },
-  {
-    id: 'rodas-motor',
-    tabLabel: 'Rodas / Motor',
-    title: 'Descontaminação de rodas e limpeza técnica de cofre',
-    diagnosis:
-      'Fuligem de pastilha de freio aderida nos cantos dos raios, barro nas caixas de roda e poeira oleosa acumulada nos plásticos do cofre.',
-    process:
-      'Descontaminante ferroso seguro para liga leve, proteção de componentes sensíveis, pincelamento técnico e verniz seco para plásticos.',
-    averageTime: '1h30 a 2h',
-    recommendedPackageId: 'detalhada',
-    recommendedAddonId: 'lavagem-motor',
-  },
-  {
     id: 'pintura-hidrografica',
     tabLabel: 'Pintura Hidrográfica',
     title: 'Imersão WTP em Fibra de Carbono & Verniz Automotivo',
     diagnosis:
-      'Plásticos internos, retrovisores, carenagens ou ponteiras originais desgastados pelo tempo, sem brilho ou com riscos superficiais.',
+      'Painéis internos, retrovisores, carenagens, tanques ou ponteiras originais desgastados pelo tempo, sem brilho ou com riscos superficiais.',
     process:
-      'Preparação técnica e primer específico, transferência na água (WTP) com trama de fibra de carbono sem emendas e verniz PU alto sólidos.',
+      'Preparação técnica e primer específico, transferência na água (WTP) com trama de fibra de carbono ou estampa sem emendas e verniz PU alto sólidos.',
     averageTime: 'Sob avaliação da peça',
+    recommendedPackageId: 'hidrografica-wtp',
     recommendedCatalogId: 8,
   },
   {
@@ -70,10 +23,64 @@ export const BEFORE_AFTER_CASES: BeforeAfterCase[] = [
     tabLabel: 'Candy & Camaleão',
     title: 'Pintura Especial Candy, Camaleão, Cromo & Cristal 3D',
     diagnosis:
-      'Rodas, tanques, calotas ou capacetes com pintura comum oxidada, sem profundidade óptica ou precisando de projeto exclusivo.',
+      'Tanques, carenagens, calotas ou capacetes com pintura original desbotada, sem profundidade óptica ou precisando de projeto exclusivo.',
     process:
       'Base metalizada/flake controlada, camadas translúcidas de verniz Candy ou pigmento Camaleão furta-cor e acabamento espelhado de alta resistência.',
     averageTime: 'Sob avaliação do projeto',
+    recommendedPackageId: 'candy-camaleao-custom',
+    recommendedAddonId: 'efeito-flake-cristal',
+    recommendedCatalogId: 3,
+  },
+  {
+    id: 'pintura-rodas',
+    tabLabel: 'Pintura de Rodas',
+    title: 'Pintura Especial Candy & Metálica em Rodas e Calotas',
+    diagnosis:
+      'Rodas de carro, aros de moto ou calotas com pintura oxidada, sem destaque visual ou com riscos superficiais de uso urbano.',
+    process:
+      'Lixamento técnico, fundo anticorrosivo, base metálica e aplicação de verniz colorido Candy (roxo, dourado ou sob medida) com verniz PU.',
+    averageTime: '1 a 2 dias úteis',
+    recommendedPackageId: 'candy-camaleao-custom',
+    recommendedAddonId: 'pintura-rodas-calotas',
     recommendedCatalogId: 15,
+  },
+  {
+    id: 'aerografia-custom',
+    tabLabel: 'Aerografia & Fosco',
+    title: 'Pintura Artística Custom, Competição & Verniz Fosco',
+    diagnosis:
+      'Capacetes, tanques e peças lisas sem identidade visual ou com pintura antiga riscada precisando de renovação sob medida.',
+    process:
+      'Desenho e mascaramento milimétrico, sombreamento em aerógrafo e selagem final em verniz fosco acetinado UV ou alto brilho espelhado.',
+    averageTime: 'Sob avaliação da arte',
+    recommendedPackageId: 'pintura-verniz',
+    recommendedAddonId: 'aerografia-grafismo',
+    recommendedCatalogId: 9,
+  },
+  {
+    id: 'revitalizacao-pintura',
+    tabLabel: 'Pintura & Verniz',
+    title: 'Renovação de Pintura, Polimento Técnico & Espelhamento',
+    diagnosis:
+      'Verniz automotivo opaco, queimado de sol, com micro-riscos circulares e perda de reflexo e profundidade de cor.',
+    process:
+      'Correção técnica escalonada da superfície, refino óptico sob iluminação de inspeção e proteção UV de alto brilho para o verniz.',
+    averageTime: '3h a 6h na oficina',
+    recommendedPackageId: 'pintura-verniz',
+    recommendedAddonId: 'polimento-verniz',
+    recommendedCatalogId: 11,
+  },
+  {
+    id: 'restauracao-farol',
+    tabLabel: 'Revitalização de Farol',
+    title: 'Clareamento Óptico e Proteção UV de Faróis',
+    diagnosis:
+      'Camada externa de policarbonato queimada pelo sol, aspecto amarelado opaco e perda de alcance do facho luminoso à noite.',
+    process:
+      'Mascaramento completo ao redor da lente, lixamento técnico progressivo, polimento óptico cristalino e selagem contra raios UV.',
+    averageTime: '1h a 1h30 (o par)',
+    recommendedPackageId: 'pintura-verniz',
+    recommendedAddonId: 'revitalizacao-farois',
+    recommendedCatalogId: 13,
   },
 ];

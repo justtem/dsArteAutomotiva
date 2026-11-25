@@ -57,7 +57,7 @@ export function CustomPhotoUploader({
 
           <div className="min-w-0 flex-1">
             <span className="block text-xs font-bold text-white truncate">
-              {customBeforeUrl ? 'Foto ANTES carregada' : '1. Foto ANTES do carro'}
+              {customBeforeUrl ? 'Foto ANTES carregada' : '1. Foto ANTES (peça ou veículo)'}
             </span>
             <span className="block text-[11px] text-[#60A5FA] font-medium mt-0.5">
               {customBeforeUrl ? 'Clique para trocar imagem' : 'Clique para escolher foto'}
@@ -88,7 +88,7 @@ export function CustomPhotoUploader({
 
           <div className="min-w-0 flex-1">
             <span className="block text-xs font-bold text-white truncate">
-              {customAfterUrl ? 'Foto DEPOIS carregada' : '2. Foto DEPOIS do carro'}
+              {customAfterUrl ? 'Foto DEPOIS carregada' : '2. Foto DEPOIS (pintura pronta)'}
             </span>
             <span className="block text-[11px] text-[#60A5FA] font-medium mt-0.5">
               {customAfterUrl ? 'Clique para trocar imagem' : 'Clique para escolher foto'}

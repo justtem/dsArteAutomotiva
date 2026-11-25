@@ -11,7 +11,8 @@ interface GalleryCardProps {
 }
 
 export function GalleryCard({ item, isInCart, onOpen, onToggleCart }: GalleryCardProps) {
-  const isFlameCategory = item.category === 'Candy & Especiais';
+  const isFlameCategory =
+    item.category === 'Candy & Especiais' || item.category === 'Aerografia & Custom';
 
   return (
     <article className="card-automotive group rounded-2xl overflow-hidden flex flex-col">

@@ -27,5 +27,3 @@ export function BrandLogo() {
     </div>
   );
 }
-
-export { BrandLogo as BoxAzulLogo };

@@ -40,10 +40,10 @@ export interface BusinessStatus {
 }
 
 export type ProcessHotspotId =
-  | 'snowfoam-pintura'
-  | 'rodas-caixas'
-  | 'interior-higienizacao'
-  | 'vidros-protecao';
+  | 'pintura-especiais'
+  | 'hidrografica-wtp'
+  | 'rodas-candy'
+  | 'farois-verniz';
 
 export interface ProcessHotspot {
   id: ProcessHotspotId;
@@ -61,12 +61,12 @@ export interface ProcessHotspot {
 }
 
 export type BeforeAfterCaseId =
-  | 'higienizacao-interna'
-  | 'revitalizacao-pintura'
-  | 'restauracao-farol'
-  | 'rodas-motor'
   | 'pintura-hidrografica'
-  | 'candy-camaleao';
+  | 'candy-camaleao'
+  | 'pintura-rodas'
+  | 'aerografia-custom'
+  | 'revitalizacao-pintura'
+  | 'restauracao-farol';
 
 export type VehicleSizeId = 'moto' | 'hatch' | 'sedan' | 'suv';
 
@@ -76,7 +76,10 @@ export interface VehicleSize {
   note: string;
 }
 
-export type ServicePackageId = 'tecnica' | 'detalhada' | 'combo-completa';
+export type ServicePackageId =
+  | 'pintura-verniz'
+  | 'hidrografica-wtp'
+  | 'candy-camaleao-custom';
 
 export interface ServicePackage {
   id: ServicePackageId;
@@ -89,11 +92,12 @@ export interface ServicePackage {
 }
 
 export type ServiceAddonId =
-  | 'cera-selante'
-  | 'hidratacao-couro'
-  | 'oxi-ozonio'
-  | 'vitrificacao-farois'
-  | 'lavagem-motor';
+  | 'revitalizacao-farois'
+  | 'pintura-rodas-calotas'
+  | 'aerografia-grafismo'
+  | 'efeito-flake-cristal'
+  | 'verniz-fosco-uv'
+  | 'polimento-verniz';
 
 interface ServiceAddonBase {
   id: ServiceAddonId;
@@ -134,21 +138,19 @@ export interface BeforeAfterCase {
 
 export type GalleryCategory =
   | 'Destaques'
-  | 'Estética & Lavagem'
   | 'Pintura Hidrográfica'
   | 'Candy & Especiais'
-  | 'Custom & Faróis';
+  | 'Aerografia & Custom'
+  | 'Estética & Faróis';
 
 export type GalleryVisualKey =
-  | 'pintura-snowfoam'
-  | 'pintura-selante'
-  | 'interior-extracao'
-  | 'interior-couro'
-  | 'rodas-motor'
-  | 'farois-optica'
   | 'hidrografica-carbono'
   | 'candy-camaleao'
-  | 'custom-capacete';
+  | 'rodas-candy'
+  | 'aerografia-fosco'
+  | 'pintura-verniz'
+  | 'farois-optica'
+  | 'cristal-cromo';
 
 export interface GalleryItem {
   id: string;

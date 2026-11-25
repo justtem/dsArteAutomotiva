@@ -71,7 +71,7 @@ export function SchedulePreferences({
               htmlFor="vehicle-model-input"
               className="block text-xs font-semibold text-[#94A3B8] mb-2"
             >
-              Modelo / cor do veículo (opcional)
+              Peça, capacete ou modelo do veículo (opcional)
             </label>
             <input
               id="vehicle-model-input"
@@ -79,7 +79,7 @@ export function SchedulePreferences({
               maxLength={48}
               value={vehicleModel}
               onChange={(e) => onChangeVehicleModel(sanitizeText(e.target.value))}
-              placeholder="Ex.: Onix Prata, Corolla Preto"
+              placeholder="Ex.: Capacete Cross, Rodas Aro 17, Tanque CG, Onix"
               className="w-full px-3.5 py-2.5 rounded-xl border border-white/12 bg-[#0B0D12] text-base sm:text-sm text-white placeholder:text-[#64748B] min-h-[46px] focus:outline-none focus:border-[#38BDF8]"
             />
           </div>
@@ -106,7 +106,7 @@ export function SchedulePreferences({
                 Incluir serviço de Leva e Traz local
               </span>
               <span className="block text-xs text-[#94A3B8] mt-0.5">
-                Retirada e devolução agendada em Valença.
+                Retirada e devolução agendada de peças ou veículos em Valença.
               </span>
             </div>
           </div>

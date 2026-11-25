@@ -79,7 +79,7 @@ export function QuoteCartModal({
               <ClipboardList className="w-9 h-9 text-[#64748B] mx-auto mb-3" aria-hidden="true" />
               <p className="text-sm font-bold text-white">Sua lista de orçamento está vazia.</p>
               <p className="text-xs text-[#94A3B8] mt-1">
-                Toque em &ldquo;+ Adicionar ao Orçamento&rdquo; nos cards da Galeria & Custom para
+                Toque em &ldquo;+ Adicionar ao Orçamento&rdquo; nos cards da Galeria & Pinturas para
                 montar seu pedido.
               </p>
             </div>

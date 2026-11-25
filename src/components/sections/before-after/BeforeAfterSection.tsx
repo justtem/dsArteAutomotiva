@@ -65,7 +65,10 @@ export function BeforeAfterSection({
     }));
   };
 
-  const isCustomPaintCase = Boolean(activeCase.recommendedCatalogId);
+  const isFlameAccent =
+    activeCase.id === 'candy-camaleao' ||
+    activeCase.id === 'pintura-rodas' ||
+    activeCase.id === 'aerografia-custom';
 
   return (
     <section id="antes-depois" className="w-full bg-[#12161F] text-white">
@@ -75,11 +78,10 @@ export function BeforeAfterSection({
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
             <div className="max-w-2xl">
               <span className="text-xs font-bold uppercase tracking-[0.18em] text-[#FB923C] block mb-2">
-                Comparador Antes e Depois
+                Comparador Antes e Depois • Pintura & Estética
               </span>
               <h2 className="font-display italic text-3xl sm:text-4xl font-bold tracking-tight text-white">
-                Resultado <span className="text-hydro-dip pr-1">visível</span> antes mesmo de
-                agendar.
+                Transformação <span className="text-hydro-dip pr-1">visível</span> em cada projeto.
               </h2>
             </div>
 
@@ -166,10 +168,10 @@ export function BeforeAfterSection({
               className="animate-panel-switch lg:col-span-5 surface-gunmetal rounded-2xl overflow-hidden flex flex-col justify-between"
             >
               <div>
-                <CardTopPaintDrip variant={isCustomPaintCase ? 'flame' : 'cyan'} />
+                <CardTopPaintDrip variant={isFlameAccent ? 'flame' : 'cyan'} />
                 <div className="p-5 sm:p-6 pb-0">
                   <span className="inline-block text-[11px] font-bold uppercase tracking-[0.16em] text-[#38BDF8] mb-2">
-                    Ficha Técnica do Serviço
+                    Ficha Técnica da Pintura / Serviço
                   </span>
                   <h3 className="font-display italic text-2xl font-bold text-white mb-5">
                     {activeCase.title}
@@ -204,29 +206,29 @@ export function BeforeAfterSection({
                 </div>
               </div>
 
-              <div className="p-5 sm:p-6 pt-5">
-                {isCustomPaintCase && activeCase.recommendedCatalogId ? (
+              <div className="p-5 sm:p-6 pt-5 space-y-2.5">
+                <button
+                  type="button"
+                  onClick={() =>
+                    onApplyCaseToSimulator(
+                      activeCase.recommendedPackageId,
+                      activeCase.recommendedAddonId
+                    )
+                  }
+                  className="btn-liquid-coat btn-chrome-shine w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-white text-sm font-bold min-h-[48px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                >
+                  <span>Simular esta pintura no orçamento</span>
+                  <ChevronRight className="w-4 h-4" aria-hidden="true" />
+                </button>
+
+                {activeCase.recommendedCatalogId && (
                   <button
                     type="button"
                     onClick={() => onAddCatalogCaseToCart(activeCase.recommendedCatalogId!)}
-                    className="btn-liquid-coat btn-chrome-shine w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-white text-sm font-bold min-h-[48px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                    className="btn-chrome-dark w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-white text-xs sm:text-sm font-bold min-h-[44px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
                   >
-                    <ClipboardPlus className="w-4 h-4" aria-hidden="true" />
-                    <span>Adicionar pintura à Lista de Orçamento</span>
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() =>
-                      onApplyCaseToSimulator(
-                        activeCase.recommendedPackageId,
-                        activeCase.recommendedAddonId
-                      )
-                    }
-                    className="btn-liquid-coat btn-chrome-shine w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-white text-sm font-bold min-h-[48px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                  >
-                    <span>Simular este serviço no orçamento</span>
-                    <ChevronRight className="w-4 h-4" aria-hidden="true" />
+                    <ClipboardPlus className="w-4 h-4 text-[#38BDF8]" aria-hidden="true" />
+                    <span>Adicionar à Lista de Orçamento</span>
                   </button>
                 )}
               </div>

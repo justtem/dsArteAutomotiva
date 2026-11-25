@@ -1,5 +1,5 @@
 import { useRef, type TouchEvent } from 'react';
-import { Check, ChevronLeft, ChevronRight, Clock } from 'lucide-react';
+import { Check, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 import { PROCESS_HOTSPOTS } from '../../../data';
 import type { ProcessHotspotId } from '../../../types';
 import { CardTopPaintDrip } from '../../ui';
@@ -10,7 +10,7 @@ interface ProcessCarInspectorProps {
 }
 
 /**
- * Inspetor interativo de processo em SVG Dark Mode com suporte a toque 44px e swipe mobile
+ * Inspetor interativo de Pintura & Estética Automotiva em SVG Dark Mode com suporte a toque 44px e swipe mobile
  */
 export function ProcessCarInspector({
   activeHotspotId,
@@ -58,7 +58,7 @@ export function ProcessCarInspector({
             aria-hidden="true"
           />
           <span className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.12em] text-[#E2E8F0] truncate">
-            Inspetor de Processo no Box
+            Inspetor de Pintura & Estética
           </span>
         </div>
 
@@ -66,7 +66,7 @@ export function ProcessCarInspector({
           <button
             type="button"
             onClick={() => selectByDelta(-1)}
-            aria-label="Etapa anterior"
+            aria-label="Especialidade anterior"
             className="sm:hidden w-8 h-8 rounded-lg bg-[#141821] border border-white/10 text-[#38BDF8] flex items-center justify-center active:scale-95"
           >
             <ChevronLeft className="w-4 h-4" />
@@ -77,7 +77,7 @@ export function ProcessCarInspector({
           <button
             type="button"
             onClick={() => selectByDelta(1)}
-            aria-label="Próxima etapa"
+            aria-label="Próxima especialidade"
             className="sm:hidden w-8 h-8 rounded-lg bg-[#141821] border border-white/10 text-[#38BDF8] flex items-center justify-center active:scale-95"
           >
             <ChevronRight className="w-4 h-4" />
@@ -85,9 +85,9 @@ export function ProcessCarInspector({
         </div>
       </div>
 
-      {/* Barra legível de Zona no mobile (evita texto minúsculo dentro do SVG em telas pequenas) */}
+      {/* Barra legível de Zona no mobile */}
       <div className="sm:hidden flex items-center justify-between gap-2 px-4 py-2 bg-[#0B0D12] border-b border-white/6 text-[11px]">
-        <span className="text-[#94A3B8] truncate">Zona: {active.zoneLabel}</span>
+        <span className="text-[#94A3B8] truncate">Aplicação: {active.zoneLabel}</span>
         <span className="text-[#FB923C] font-bold tabular-nums shrink-0">
           {active.estimatedTime}
         </span>
@@ -99,12 +99,17 @@ export function ProcessCarInspector({
           viewBox="0 0 600 250"
           className="w-full h-auto block"
           role="img"
-          aria-label={`Diagrama técnico destacando a etapa ${active.number}: ${active.title}`}
+          aria-label={`Diagrama técnico destacando a especialidade ${active.number}: ${active.title}`}
         >
           <defs>
             <pattern id="darkTechGrid" width="24" height="24" patternUnits="userSpaceOnUse">
               <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#161D29" strokeWidth="1" />
             </pattern>
+            <linearGradient id="candyBodySheen" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#29B6F6" stopOpacity="0.34" />
+              <stop offset="55%" stopColor="#A855F7" stopOpacity="0.28" />
+              <stop offset="100%" stopColor="#FB923C" stopOpacity="0.34" />
+            </linearGradient>
           </defs>
           <rect width="600" height="250" fill="url(#darkTechGrid)" />
 
@@ -120,73 +125,92 @@ export function ProcessCarInspector({
             strokeDasharray="6 6"
           />
 
-          {/* Destaque técnico de zona conforme etapa ativa */}
-          {activeHotspotId === 'snowfoam-pintura' && (
+          {/* Destaques visuais por especialidade de pintura */}
+          {activeHotspotId === 'pintura-especiais' && (
             <g>
               <path
-                d="M72 162 C82 118, 128 104, 198 100 L226 100 L226 178 L72 178 Z"
-                fill="#29B6F6"
-                fillOpacity="0.18"
+                d="M84 166 C94 120, 146 102, 232 98 L402 104 L402 168 L84 168 Z"
+                fill="url(#candyBodySheen)"
                 stroke="#38BDF8"
-                strokeWidth="1.4"
-                strokeDasharray="4 3"
+                strokeWidth="1.5"
+                strokeDasharray="5 3"
               />
-              {[94, 118, 142, 166, 188, 112, 152].map((cx, i) => (
+              {[130, 168, 206, 254, 298, 342].map((cx, i) => (
                 <circle
                   key={cx}
                   cx={cx}
-                  cy={116 + (i % 3) * 17}
-                  r={2.8 + (i % 2)}
-                  fill="#FFFFFF"
-                  fillOpacity="0.75"
+                  cy={124 + (i % 3) * 14}
+                  r="2.2"
+                  fill={i % 2 === 0 ? '#FDE047' : '#38BDF8'}
                 />
               ))}
             </g>
           )}
 
-          {activeHotspotId === 'rodas-caixas' && (
+          {activeHotspotId === 'hidrografica-wtp' && (
+            <g>
+              <path
+                d="M204 106 C244 74, 340 72, 412 106 L412 134 L204 134 Z"
+                fill="#29B6F6"
+                fillOpacity="0.24"
+                stroke="#38BDF8"
+                strokeWidth="1.5"
+              />
+              <circle
+                cx="220"
+                cy="105"
+                r="14"
+                fill="#FB923C"
+                fillOpacity="0.25"
+                stroke="#FB923C"
+                strokeWidth="1.3"
+              />
+            </g>
+          )}
+
+          {activeHotspotId === 'rodas-candy' && (
             <g>
               <circle
                 cx="448"
                 cy="172"
                 r="40"
-                fill="#29B6F6"
-                fillOpacity="0.2"
+                fill="#A855F7"
+                fillOpacity="0.26"
                 stroke="#FB923C"
-                strokeWidth="1.6"
+                strokeWidth="1.8"
                 strokeDasharray="4 3"
               />
               <circle
                 cx="152"
                 cy="172"
                 r="38"
-                fill="#29B6F6"
-                fillOpacity="0.12"
-                stroke="#38BDF8"
-                strokeWidth="1.2"
+                fill="#A855F7"
+                fillOpacity="0.18"
+                stroke="#C084FC"
+                strokeWidth="1.4"
                 strokeDasharray="4 3"
               />
             </g>
           )}
 
-          {activeHotspotId === 'interior-higienizacao' && (
-            <path
-              d="M225 104 C252 76, 338 74, 390 104 L390 136 L225 136 Z"
-              fill="#29B6F6"
-              fillOpacity="0.24"
-              stroke="#38BDF8"
-              strokeWidth="1.5"
-            />
-          )}
-
-          {activeHotspotId === 'vidros-protecao' && (
-            <path
-              d="M178 103 C230 62, 344 60, 418 98 L492 108 L492 122 L178 118 Z"
-              fill="#29B6F6"
-              fillOpacity="0.22"
-              stroke="#38BDF8"
-              strokeWidth="1.5"
-            />
+          {activeHotspotId === 'farois-verniz' && (
+            <g>
+              <polygon
+                points="74,132 22,112 22,162 74,144"
+                fill="#38BDF8"
+                fillOpacity="0.28"
+              />
+              <circle
+                cx="88"
+                cy="136"
+                r="24"
+                fill="#29B6F6"
+                fillOpacity="0.24"
+                stroke="#38BDF8"
+                strokeWidth="1.5"
+                strokeDasharray="4 3"
+              />
+            </g>
           )}
 
           {/* Silhueta técnica do veículo */}
@@ -200,16 +224,8 @@ export function ProcessCarInspector({
             <path d="M90 132 L512 128" stroke="#475569" strokeWidth="1.2" />
             <path
               d="M196 108 L238 77 C272 70, 336 70, 382 81 L422 108 Z"
-              fill={
-                activeHotspotId === 'interior-higienizacao' || activeHotspotId === 'vidros-protecao'
-                  ? '#29B6F6'
-                  : '#07090C'
-              }
-              fillOpacity={
-                activeHotspotId === 'interior-higienizacao' || activeHotspotId === 'vidros-protecao'
-                  ? '0.28'
-                  : '0.92'
-              }
+              fill={activeHotspotId === 'hidrografica-wtp' ? '#29B6F6' : '#07090C'}
+              fillOpacity={activeHotspotId === 'hidrografica-wtp' ? '0.32' : '0.92'}
               stroke="#94A3B8"
               strokeWidth="1.4"
             />
@@ -218,16 +234,16 @@ export function ProcessCarInspector({
             <line x1="402" y1="108" x2="404" y2="155" stroke="#334155" strokeWidth="1" />
             <path
               d="M214 102 L228 100 L228 110 L212 110 Z"
-              fill="#121720"
+              fill={activeHotspotId === 'hidrografica-wtp' ? '#FB923C' : '#121720'}
               stroke="#CBD5E1"
               strokeWidth="1.4"
             />
             <path
               d="M74 135 L108 128 L102 140 L72 143 Z"
-              fill="#29B6F6"
-              fillOpacity="0.8"
-              stroke="#FFFFFF"
-              strokeWidth="1.1"
+              fill={activeHotspotId === 'farois-verniz' ? '#FFFFFF' : '#29B6F6'}
+              fillOpacity="0.9"
+              stroke="#38BDF8"
+              strokeWidth="1.3"
             />
             <path
               d="M512 122 L531 126 L531 138 L508 136 Z"
@@ -241,9 +257,14 @@ export function ProcessCarInspector({
 
           {/* Roda Dianteira */}
           <g transform="translate(152, 172)">
-            <circle r="31" fill="#07090C" stroke="#E2E8F0" strokeWidth="2" />
+            <circle
+              r="31"
+              fill="#07090C"
+              stroke={activeHotspotId === 'rodas-candy' ? '#C084FC' : '#E2E8F0'}
+              strokeWidth="2"
+            />
             <circle r="21" fill="#121720" stroke="#94A3B8" strokeWidth="1.4" />
-            <circle r="5.5" fill="#29B6F6" />
+            <circle r="5.5" fill={activeHotspotId === 'rodas-candy' ? '#C084FC' : '#29B6F6'} />
             {[0, 60, 120, 180, 240, 300].map((deg) => (
               <line
                 key={deg}
@@ -251,7 +272,7 @@ export function ProcessCarInspector({
                 y1="-6"
                 x2="0"
                 y2="-20"
-                stroke="#94A3B8"
+                stroke={activeHotspotId === 'rodas-candy' ? '#C084FC' : '#94A3B8'}
                 strokeWidth="1.5"
                 transform={`rotate(${deg})`}
               />
@@ -263,11 +284,11 @@ export function ProcessCarInspector({
             <circle
               r="31"
               fill="#07090C"
-              stroke={activeHotspotId === 'rodas-caixas' ? '#FB923C' : '#E2E8F0'}
+              stroke={activeHotspotId === 'rodas-candy' ? '#FB923C' : '#E2E8F0'}
               strokeWidth="2"
             />
             <circle r="21" fill="#121720" stroke="#94A3B8" strokeWidth="1.4" />
-            <circle r="5.5" fill="#29B6F6" />
+            <circle r="5.5" fill={activeHotspotId === 'rodas-candy' ? '#FB923C' : '#29B6F6'} />
             {[0, 60, 120, 180, 240, 300].map((deg) => (
               <line
                 key={deg}
@@ -275,7 +296,7 @@ export function ProcessCarInspector({
                 y1="-6"
                 x2="0"
                 y2="-20"
-                stroke="#94A3B8"
+                stroke={activeHotspotId === 'rodas-candy' ? '#C084FC' : '#94A3B8'}
                 strokeWidth="1.5"
                 transform={`rotate(${deg})`}
               />
@@ -291,17 +312,17 @@ export function ProcessCarInspector({
             fontFamily="monospace"
             className="hidden sm:block"
           >
-            ZONA: {active.zoneLabel.toUpperCase()}
+            APLICAÇÃO: {active.zoneLabel.toUpperCase()}
           </text>
           <text
-            x="448"
+            x="432"
             y="25"
             fill="#FB923C"
             fontSize="10"
             fontFamily="monospace"
             className="hidden sm:block"
           >
-            TEMPO: {active.estimatedTime.toUpperCase()}
+            TÉCNICA: {active.estimatedTime.toUpperCase()}
           </text>
         </svg>
 
@@ -314,7 +335,7 @@ export function ProcessCarInspector({
               type="button"
               onClick={() => onSelectHotspot(stage.id)}
               style={{ left: `${stage.hotspot.x}%`, top: `${stage.hotspot.y}%` }}
-              aria-label={`Inspecionar etapa ${stage.number}: ${stage.title}`}
+              aria-label={`Inspecionar especialidade ${stage.number}: ${stage.title}`}
               aria-pressed={isSelected}
               className="absolute -translate-x-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] rounded-full"
             >
@@ -335,7 +356,7 @@ export function ProcessCarInspector({
       {/* Abas 1 a 4 */}
       <div
         role="tablist"
-        aria-label="Etapas do processo no box"
+        aria-label="Especialidades de pintura e estética automotiva"
         className="grid grid-cols-2 sm:grid-cols-4 border-t border-b border-white/10 bg-[#0B0D12]"
       >
         {PROCESS_HOTSPOTS.map((stage) => {
@@ -368,14 +389,14 @@ export function ProcessCarInspector({
         })}
       </div>
 
-      {/* Detalhes técnicos da etapa selecionada */}
+      {/* Detalhes técnicos da especialidade selecionada */}
       <div key={active.id} className="animate-panel-switch p-4 sm:p-5 bg-[#121722]">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-2.5">
           <h3 className="font-display italic text-lg sm:text-xl font-bold tracking-wide text-white">
             {active.number}. {active.title}
           </h3>
           <span className="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold tabular-nums text-[#FB923C] bg-[#0B0D12] border border-white/10 px-3 py-1 rounded-full">
-            <Clock className="w-3.5 h-3.5 text-[#38BDF8]" aria-hidden="true" />
+            <Sparkles className="w-3.5 h-3.5 text-[#38BDF8]" aria-hidden="true" />
             {active.estimatedTime}
           </span>
         </div>

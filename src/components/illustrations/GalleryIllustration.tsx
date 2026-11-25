@@ -6,56 +6,48 @@ interface GalleryIllustrationProps {
 }
 
 /**
- * Ilustrações técnicas SVG escuras para a Galeria Técnica & Customização
+ * Ilustrações técnicas SVG escuras para a Galeria de Pinturas & Estética Automotiva
  */
 export function GalleryIllustration({ visualKey }: GalleryIllustrationProps) {
-  if (visualKey === 'pintura-snowfoam') {
+  if (visualKey === 'cristal-cromo') {
     return (
       <svg viewBox="0 0 480 300" className="w-full h-full block" aria-hidden="true">
-        <rect width="480" height="300" fill="#0B0F17" />
-        <path d="M0 0 H305 C278 96 322 184 218 300 H0 Z" fill="#E2E8F0" fillOpacity="0.92" />
-        <path d="M0 0 H272 C248 92 292 180 190 300 H0 Z" fill="#FFFFFF" fillOpacity="0.96" />
-        <path d="M292 78 Q384 102 444 196" fill="none" stroke="#0066FF" strokeWidth="2.5" />
-        <path d="M254 176 Q364 188 468 232" fill="none" stroke="#334155" strokeWidth="1.5" />
-        {[46, 88, 136, 184, 72, 124, 168, 212].map((cx, i) => (
+        <defs>
+          <linearGradient id="thermo-candy-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#FDE047" />
+            <stop offset="45%" stopColor="#FB923C" />
+            <stop offset="100%" stopColor="#EC4899" />
+          </linearGradient>
+        </defs>
+        <rect width="480" height="300" fill="#080B12" />
+        <path
+          d="M62 224 C78 118, 168 62, 292 68 C378 72, 424 128, 418 206 L392 238 L96 238 Z"
+          fill="url(#thermo-candy-grad)"
+          fillOpacity="0.82"
+          stroke="#FDE047"
+          strokeWidth="2"
+        />
+        <path
+          d="M118 134 Q228 84 344 96"
+          fill="none"
+          stroke="#FFFFFF"
+          strokeOpacity="0.85"
+          strokeWidth="4"
+          strokeLinecap="round"
+        />
+        {[128, 164, 208, 246, 288, 326, 358].map((cx, i) => (
           <circle
-            key={`${cx}-${i}`}
+            key={cx}
             cx={cx}
-            cy={42 + (i % 4) * 62}
-            r={3 + (i % 3)}
-            fill="#CBD5E1"
+            cy={138 + (i % 3) * 26}
+            r={2.4 + (i % 2)}
+            fill="#FFFFFF"
+            fillOpacity="0.85"
           />
         ))}
-        <text x="294" y="42" fill="#38BDF8" fontSize="11" fontFamily="monospace">
-          PH NEUTRO • SNOW FOAM
-        </text>
-      </svg>
-    );
-  }
-
-  if (visualKey === 'pintura-selante') {
-    return <BeforeAfterIllustration caseId="revitalizacao-pintura" side="after" />;
-  }
-
-  if (visualKey === 'interior-extracao') {
-    return <BeforeAfterIllustration caseId="higienizacao-interna" side="after" />;
-  }
-
-  if (visualKey === 'interior-couro') {
-    return (
-      <svg viewBox="0 0 480 300" className="w-full h-full block" aria-hidden="true">
-        <rect width="480" height="300" fill="#0D1117" />
-        <rect x="0" y="0" width="240" height="300" fill="#161D29" />
-        <line x1="240" y1="0" x2="240" y2="300" stroke="#0066FF" strokeWidth="2" />
-        {[-120, -60, 0, 60, 120, 180, 240, 300, 360].map((x) => (
-          <g key={x} stroke="#263245" strokeWidth="1">
-            <line x1={x} y1="0" x2={x + 220} y2="300" />
-            <line x1={x + 220} y1="0" x2={x} y2="300" />
-          </g>
-        ))}
-        <rect x="262" y="24" width="194" height="28" rx="2" fill="#07090C" stroke="#1E293B" />
-        <text x="274" y="42" fill="#38BDF8" fontSize="11" fontFamily="monospace">
-          COURO FOSCO • PROTEÇÃO UV
+        <rect x="116" y="252" width="248" height="26" rx="4" fill="#07090C" stroke="#1E293B" />
+        <text x="130" y="269" fill="#FDE047" fontSize="10.5" fontFamily="monospace">
+          FLUORESCENTE • CRISTAL 3D • TERMOCRÔMICA
         </text>
       </svg>
     );
@@ -65,12 +57,20 @@ export function GalleryIllustration({ visualKey }: GalleryIllustrationProps) {
     return <BeforeAfterIllustration caseId="pintura-hidrografica" side="after" />;
   }
 
-  if (visualKey === 'candy-camaleao' || visualKey === 'custom-capacete') {
+  if (visualKey === 'candy-camaleao') {
     return <BeforeAfterIllustration caseId="candy-camaleao" side="after" />;
   }
 
-  if (visualKey === 'rodas-motor') {
-    return <BeforeAfterIllustration caseId="rodas-motor" side="after" />;
+  if (visualKey === 'rodas-candy') {
+    return <BeforeAfterIllustration caseId="pintura-rodas" side="after" />;
+  }
+
+  if (visualKey === 'aerografia-fosco') {
+    return <BeforeAfterIllustration caseId="aerografia-custom" side="after" />;
+  }
+
+  if (visualKey === 'pintura-verniz') {
+    return <BeforeAfterIllustration caseId="revitalizacao-pintura" side="after" />;
   }
 
   return <BeforeAfterIllustration caseId="restauracao-farol" side="after" />;

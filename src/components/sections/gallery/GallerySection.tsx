@@ -60,11 +60,11 @@ export function GallerySection({ cartItems, onToggleCartItem }: GallerySectionPr
           <div className="flex flex-col xl:flex-row xl:items-end justify-between gap-5 mb-8">
             <div className="max-w-2xl">
               <span className="text-xs font-bold uppercase tracking-[0.18em] text-[#FB923C] block mb-2">
-                Galeria Técnica & Customização
+                Portfólio de Pinturas & Estética Automotiva
               </span>
               <h2 className="font-display italic text-3xl sm:text-4xl font-bold tracking-tight text-white">
-                Serviços filtráveis com{' '}
-                <span className="font-drip not-italic text-hydro-dip">ARTE</span> no processo.
+                Projetos personalizados com{' '}
+                <span className="font-drip not-italic text-hydro-dip">ARTE</span> em cada camada.
               </h2>
             </div>
 
