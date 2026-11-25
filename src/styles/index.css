@@ -2,8 +2,32 @@
 
 @theme {
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-display: 'Chakra Petch', 'Inter', system-ui, sans-serif;
-  --font-drip: 'Rubik Wet Paint', 'Chakra Petch', cursive;
+  --font-display: 'Barlow Condensed', 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+:root {
+  /* Paleta Escura (Hero, Galeria, Navbar, Footer) */
+  --dark-bg: #0B0B0D;
+  --dark-surface: #141418;
+  --dark-elevated: #1C1C22;
+  --dark-border: #27272F;
+  --dark-text: #F5F5F4;
+  --dark-muted: #A1A1AA;
+
+  /* Paleta Clara "Concreto / Papel Técnico" (Comparador, Simulador OS, Localização) */
+  --light-concrete: #EFECE6;
+  --light-stone: #E4E0D8;
+  --light-paper: #F8F6F2;
+  --light-ink: #111113;
+  --light-body: #3F3F46;
+  --light-muted: #52525B;
+
+  /* Acentos da Marca */
+  --brand-cyan: #0EA5E9;
+  --brand-cyan-ink: #075985;
+  --brand-orange: #F97316;
+  --brand-orange-ink: #C2410C;
 }
 
 html,
@@ -18,16 +42,16 @@ body,
 
 html {
   scroll-behavior: smooth;
-  background-color: #0B0D12;
-  color-scheme: dark;
+  background-color: #0B0B0D;
   -webkit-text-size-adjust: 100%;
 }
 
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  background-color: #0B0D12;
-  color: #F8FAFC;
+  background-color: #0B0B0D;
+  color: #F5F5F4;
   overscroll-behavior-x: none;
+  overflow-x: clip;
 }
 
 button,
@@ -38,19 +62,18 @@ input {
 }
 
 .font-display {
-  font-family: 'Chakra Petch', 'Inter', system-ui, sans-serif;
-}
-
-.font-drip {
-  font-family: 'Rubik Wet Paint', 'Chakra Petch', sans-serif;
-  letter-spacing: 0.02em;
+  font-family: 'Barlow Condensed', 'Inter', system-ui, sans-serif;
 }
 
 .font-sans {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-/* Utilitário para carrosséis horizontais de abas no celular sem barra feia */
+.font-mono {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* Carrosséis horizontais sem barra feia no mobile */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -59,210 +82,244 @@ input {
   scrollbar-width: none;
 }
 
-/* Safe area para iPhones com barra inferior (Home Indicator) */
+/* Safe area para iPhones com Home Indicator */
 .pb-safe {
   padding-bottom: max(0.65rem, env(safe-area-inset-bottom));
 }
 
-/* Foco visível por teclado no input range do comparador Antes/Depois */
-.ba-overlay-range:focus-visible {
-  outline: 2px solid #29B6F6;
-  outline-offset: -2px;
-  opacity: 0.08;
+/* ============================================================================
+ * TEXTURAS & ATMOSFERA SUTIL (3% OPACIDADE)
+ * ============================================================================ */
+
+.bg-asphalt-grid {
+  background-image:
+    linear-gradient(to right, rgba(245, 245, 244, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(245, 245, 244, 0.03) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+.bg-concrete-grain {
+  background-image: radial-gradient(rgba(17, 17, 19, 0.055) 1px, transparent 0);
+  background-size: 20px 20px;
+}
+
+.hero-zenith-glow {
+  background: radial-gradient(
+    ellipse 75% 40% at 35% 0%,
+    rgba(245, 245, 244, 0.055) 0%,
+    rgba(14, 165, 233, 0.025) 45%,
+    transparent 78%
+  );
 }
 
 /* ============================================================================
- * IDENTIDADE VISUAL DS ARTE: TINTA DERRETIDA, HIDROGRÁFICA, CHAMA CANDY & CROMO
+ * BOTÕES E CONTROLES — TEMA ESCURO (#0B0B0D)
  * ============================================================================ */
 
-.text-hydro-dip {
-  background: linear-gradient(
-    180deg,
-    #FFFFFF 0%,
-    #FFFFFF 47%,
-    #38BDF8 51%,
-    #0284C7 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  filter: drop-shadow(0 2px 10px rgba(41, 182, 246, 0.28));
-}
-
-.text-candy-flame {
-  background: linear-gradient(135deg, #FDE047 0%, #FB923C 48%, #EF4444 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.surface-gunmetal {
-  background: linear-gradient(165deg, #181D27 0%, #10141C 100%);
-  border: 1px solid rgba(226, 232, 240, 0.1);
-  box-shadow:
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.07),
-    0 12px 32px -12px rgba(0, 0, 0, 0.65);
-}
-
-/* Botão com acabamento "Verniz Automotivo Molhado" (Wet Clear-Coat) */
-.btn-liquid-coat {
+.btn-dark-primary {
   position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, #0284C7 0%, #29B6F6 50%, #0369A1 100%);
-  border: 1px solid rgba(186, 230, 253, 0.45);
-  box-shadow:
-    inset 0 2px 2px rgba(255, 255, 255, 0.42),
-    inset 0 -3px 6px rgba(3, 105, 161, 0.7),
-    0 8px 24px -6px rgba(41, 182, 246, 0.5);
-  transition:
-    transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.28s ease,
-    filter 0.22s ease;
-}
-
-@media (hover: hover) {
-  .btn-liquid-coat:hover {
-    transform: translateY(-2px) scale(1.01);
-    filter: brightness(1.07);
-    box-shadow:
-      inset 0 2px 3px rgba(255, 255, 255, 0.55),
-      0 12px 30px -5px rgba(41, 182, 246, 0.7),
-      0 0 16px -2px rgba(251, 146, 60, 0.35);
-  }
-}
-
-.btn-liquid-coat:active {
-  transform: scale(0.965);
-  filter: brightness(1.1);
-  box-shadow:
-    inset 0 2px 3px rgba(255, 255, 255, 0.6),
-    0 4px 18px -2px rgba(41, 182, 246, 0.75);
-}
-
-/* Botão secundário cromado escuro */
-.btn-chrome-dark {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(180deg, #1E2532 0%, #12161F 100%);
-  border: 1px solid rgba(148, 163, 184, 0.22);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  transition:
-    transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.25s ease,
-    box-shadow 0.25s ease,
-    color 0.2s ease;
-}
-
-@media (hover: hover) {
-  .btn-chrome-dark:hover {
-    transform: translateY(-2px);
-    border-color: #38BDF8;
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.18),
-      0 8px 22px -8px rgba(56, 189, 248, 0.4);
-  }
-}
-
-.btn-chrome-dark:active {
-  transform: scale(0.965);
-  border-color: #38BDF8;
-}
-
-/* Reflexo especular de verniz: no desktop varre no hover; no celular varre suavemente de forma periódica! */
-@keyframes autoWetSheen {
-  0%, 72%, 100% {
-    left: -130%;
-  }
-  92% {
-    left: 155%;
-  }
-}
-
-.btn-chrome-shine::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -130%;
-  width: 70%;
-  height: 100%;
-  background: linear-gradient(
-    110deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.34) 50%,
-    transparent 100%
+  background-color: #0EA5E9;
+  color: #0B0B0D;
+  border: none;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 10px) 0,
+    100% 10px,
+    100% 100%,
+    10px 100%,
+    0 calc(100% - 10px)
   );
-  transform: skewX(-22deg);
-  transition: left 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-  pointer-events: none;
-}
-
-@media (hover: hover) {
-  .btn-chrome-shine:hover::after {
-    left: 150%;
-  }
-}
-
-@media (hover: none) {
-  .btn-chrome-shine::after {
-    animation: autoWetSheen 5.5s ease-in-out infinite;
-  }
-}
-
-.btn-interactive {
   transition:
-    transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.25s ease,
-    background-color 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease;
+    background-color 0.16s ease,
+    transform 0.16s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (hover: hover) {
-  .btn-interactive:hover {
-    transform: translateY(-1.5px);
+  .btn-dark-primary:hover {
+    background-color: #38BDF8;
+    transform: translateY(-1px);
   }
 }
 
-.btn-interactive:active {
-  transform: scale(0.965);
+.btn-dark-primary:active {
+  transform: scale(0.985);
+}
+
+.btn-dark-primary:focus-visible {
+  outline: none;
+  box-shadow:
+    inset 0 0 0 2px #0B0B0D,
+    inset 0 0 0 4px #F5F5F4;
+  filter: drop-shadow(0 0 6px rgba(14, 165, 233, 0.75));
+}
+
+.btn-dark-secondary {
+  background-color: #141418;
+  color: #F5F5F4;
+  border: 1px solid #27272F;
+  border-radius: 2px;
+  transition:
+    background-color 0.16s ease,
+    border-color 0.16s ease,
+    color 0.16s ease,
+    transform 0.16s ease;
+}
+
+@media (hover: hover) {
+  .btn-dark-secondary:hover {
+    background-color: #1C1C22;
+    border-color: #52525B;
+  }
+}
+
+.btn-dark-secondary:active {
+  transform: scale(0.985);
+  border-color: #0EA5E9;
+}
+
+.btn-dark-secondary:focus-visible {
+  outline: 2px solid #0EA5E9;
+  outline-offset: 2px;
 }
 
 /* ============================================================================
- * ANIMAÇÕES LÍQUIDAS, BLOB MORFOLÓGICO, BOTTOM-SHEET MOBILE E GOTAS
+ * BOTÕES E CONTROLES — TEMA CONCRETO / ORDEM DE SERVIÇO (#EFECE6)
  * ============================================================================ */
 
-@keyframes liquidBlobMorph {
-  0%, 100% {
-    border-radius: 58% 42% 64% 36% / 48% 58% 42% 52%;
-    transform: rotate(0deg) scale(1);
-  }
-  33% {
-    border-radius: 42% 58% 45% 55% / 62% 38% 62% 38%;
-    transform: rotate(4deg) scale(1.04);
-  }
-  66% {
-    border-radius: 65% 35% 52% 48% / 40% 64% 36% 60%;
-    transform: rotate(-3deg) scale(0.98);
+.btn-ink-primary {
+  background-color: #111113;
+  color: #F8F6F2;
+  border: 2px solid #111113;
+  border-radius: 2px;
+  transition:
+    background-color 0.16s ease,
+    color 0.16s ease,
+    border-color 0.16s ease,
+    transform 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+@media (hover: hover) {
+  .btn-ink-primary:hover {
+    background-color: #0EA5E9;
+    color: #111113;
+    border-color: #111113;
+    box-shadow: 3px 3px 0px #111113;
+    transform: translate(-1px, -1px);
   }
 }
 
-@keyframes dripOoze {
-  0%, 100% {
-    transform: scaleY(1);
-  }
-  50% {
-    transform: scaleY(1.14);
+.btn-ink-primary:active {
+  transform: translate(0, 0);
+  box-shadow: none;
+}
+
+.btn-ink-primary:focus-visible {
+  outline: 2px solid #0369A1;
+  outline-offset: 2px;
+}
+
+.btn-cyan-stamp {
+  background-color: #0EA5E9;
+  color: #111113;
+  border: 2px solid #111113;
+  border-radius: 2px;
+  box-shadow: 0 3px 0px #111113;
+  transition:
+    background-color 0.16s ease,
+    transform 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+@media (min-width: 640px) {
+  .btn-cyan-stamp {
+    box-shadow: 3px 3px 0px #111113;
   }
 }
 
-@keyframes panelFadeSlide {
+@media (hover: hover) {
+  .btn-cyan-stamp:hover {
+    background-color: #38BDF8;
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0px #111113;
+  }
+}
+
+.btn-cyan-stamp:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px #111113;
+}
+
+.btn-cyan-stamp:focus-visible {
+  outline: 2px solid #111113;
+  outline-offset: 2px;
+}
+
+.btn-ink-outline {
+  background-color: #F8F6F2;
+  color: #111113;
+  border: 2px solid #111113;
+  border-radius: 2px;
+  transition:
+    background-color 0.16s ease,
+    color 0.16s ease,
+    transform 0.16s ease;
+}
+
+@media (hover: hover) {
+  .btn-ink-outline:hover {
+    background-color: #111113;
+    color: #F8F6F2;
+  }
+}
+
+.btn-ink-outline:active {
+  transform: scale(0.985);
+}
+
+.btn-ink-outline:focus-visible {
+  outline: 2px solid #0369A1;
+  outline-offset: 2px;
+}
+
+/* ============================================================================
+ * MARQUEE CONTÍNUO SEM SALTO E SEM OVERFLOW
+ * ============================================================================ */
+
+@keyframes customShopMarquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: customShopMarquee 30s linear infinite;
+}
+
+@media (hover: hover) {
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+}
+
+/* ============================================================================
+ * ANIMAÇÕES DE INTERFACE
+ * ============================================================================ */
+
+@keyframes panelSwitchIn {
   from {
     opacity: 0;
-    transform: translateY(10px) scale(0.988);
+    transform: translateY(5px);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 }
 
@@ -278,147 +335,64 @@ input {
 @keyframes modalSheetUp {
   from {
     opacity: 0;
-    transform: translateY(36px) scale(0.98);
+    transform: translateY(18px);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 }
 
 @keyframes toastSlideUp {
   from {
     opacity: 0;
-    transform: translate(-50%, 18px) scale(0.95);
+    transform: translate(-50%, 12px);
   }
   to {
     opacity: 1;
-    transform: translate(-50%, 0) scale(1);
-  }
-}
-
-@keyframes hotspotDualPulse {
-  0%, 100% {
-    box-shadow:
-      0 0 0 0 rgba(41, 182, 246, 0.65),
-      0 0 12px 1px rgba(251, 146, 60, 0.4);
-  }
-  70% {
-    box-shadow:
-      0 0 0 12px rgba(41, 182, 246, 0),
-      0 0 18px 3px rgba(251, 146, 60, 0);
+    transform: translate(-50%, 0);
   }
 }
 
 @keyframes badgePop {
   0% {
-    transform: scale(0.7);
+    transform: scale(0.82);
   }
-  60% {
-    transform: scale(1.22);
+  65% {
+    transform: scale(1.12);
   }
   100% {
     transform: scale(1);
   }
 }
 
-.animate-liquid-blob {
-  animation: liquidBlobMorph 8s ease-in-out infinite;
-}
-
-.animate-drip-ooze {
-  transform-origin: top center;
-  animation: dripOoze 4.5s ease-in-out infinite;
-}
-
 .animate-panel-switch {
-  animation: panelFadeSlide 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: panelSwitchIn 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .animate-modal-backdrop {
-  animation: modalBackdropIn 0.2s ease-out both;
+  animation: modalBackdropIn 0.18s ease-out both;
 }
 
 .animate-modal-card {
-  animation: modalSheetUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: modalSheetUp 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .animate-toast-in {
-  animation: toastSlideUp 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-.animate-hotspot-active {
-  animation: hotspotDualPulse 2.2s infinite;
+  animation: toastSlideUp 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .animate-badge-pop {
-  animation: badgePop 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/* Card custom-shop com feedback tátil para toque no celular e elevação no desktop */
-.card-automotive {
-  position: relative;
-  background: linear-gradient(165deg, #171C26 0%, #0F131B 100%);
-  border: 1px solid rgba(226, 232, 240, 0.12);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    0 10px 28px -12px rgba(0, 0, 0, 0.7);
-  transition:
-    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.25s ease,
-    box-shadow 0.3s ease;
-}
-
-@media (hover: hover) {
-  .card-automotive:hover {
-    transform: translateY(-6px);
-    border-color: rgba(56, 189, 248, 0.75);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.18),
-      0 20px 40px -14px rgba(2, 132, 199, 0.45),
-      0 0 22px -8px rgba(251, 146, 60, 0.28);
-  }
-}
-
-.card-automotive:active {
-  transform: scale(0.985);
-  border-color: rgba(56, 189, 248, 0.8);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.18),
-    0 8px 24px -8px rgba(41, 182, 246, 0.5);
-}
-
-/* Opções selecionáveis com estilo cápsula/tinta molhada */
-.option-interactive {
-  transition:
-    transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.22s ease,
-    background-color 0.22s ease,
-    box-shadow 0.25s ease,
-    color 0.2s ease;
-}
-
-@media (hover: hover) {
-  .option-interactive:hover {
-    transform: translateY(-2px);
-  }
-}
-
-.option-interactive:active {
-  transform: scale(0.96);
-}
-
-.option-selected-glow {
-  background: linear-gradient(135deg, rgba(2, 132, 199, 0.34) 0%, rgba(24, 31, 46, 0.96) 100%);
-  border-color: #38BDF8 !important;
-  box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.24),
-    0 6px 22px -6px rgba(41, 182, 246, 0.58);
+  animation: badgePop 0.22s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .marquee-track {
+    animation: none !important;
+    transform: none !important;
   }
   *, *::before, *::after {
     transition-duration: 0.01ms !important;

@@ -20,12 +20,10 @@ export function PackageSelector({
   );
 
   return (
-    <div>
-      <div className="flex items-center gap-2.5 mb-3.5">
-        <span className="w-6 h-6 rounded-lg bg-gradient-to-br from-[#29B6F6] to-[#0284C7] text-white text-xs font-bold tabular-nums flex items-center justify-center shadow">
-          2
-        </span>
-        <h3 className="text-sm font-bold uppercase tracking-wider text-white">
+    <div className="border-t-2 border-[#111113] pt-5">
+      <div className="flex items-baseline gap-2.5 mb-4">
+        <span className="font-mono text-sm font-bold text-[#C2410C]">02 //</span>
+        <h3 className="font-display text-2xl sm:text-[26px] font-extrabold uppercase tracking-tight leading-none text-[#111113]">
           Modalidade de pintura & estética
         </h3>
       </div>
@@ -33,7 +31,7 @@ export function PackageSelector({
       <div
         role="radiogroup"
         aria-label="Modalidades de pintura e estética"
-        className="surface-gunmetal rounded-2xl divide-y divide-white/10 overflow-hidden"
+        className="border-2 border-[#111113] bg-[#F8F6F2] divide-y-2 divide-[#111113]"
       >
         {SERVICE_PACKAGES.map((pkg) => {
           const isSelected = selectedPackageId === pkg.id;
@@ -45,10 +43,10 @@ export function PackageSelector({
           return (
             <div
               key={pkg.id}
-              className={`transition-all duration-200 border-l-4 ${
+              className={`transition-colors ${
                 isSelected
-                  ? 'bg-[#1A2232]/85 border-l-[#29B6F6]'
-                  : 'bg-transparent border-l-transparent hover:bg-white/[0.03]'
+                  ? 'bg-white border-l-[6px] border-l-[#0EA5E9]'
+                  : 'bg-[#F8F6F2] hover:bg-[#EFECE6]/70'
               }`}
             >
               <div className="p-4 sm:p-5">
@@ -59,37 +57,37 @@ export function PackageSelector({
                       name="paint-package"
                       checked={isSelected}
                       onChange={() => onSelectPackage(pkg.id)}
-                      className="mt-1 w-4 h-4 accent-[#29B6F6] cursor-pointer shrink-0"
+                      className="mt-1.5 w-4 h-4 accent-[#111113] cursor-pointer shrink-0"
                     />
                     <div className="min-w-0">
                       <div className="flex flex-wrap items-center gap-2">
-                        <span className="font-display italic text-lg font-bold text-white">
+                        <span className="font-display text-xl sm:text-2xl font-extrabold uppercase tracking-tight leading-tight text-[#111113]">
                           {pkg.name}
                         </span>
                         <span
-                          className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full border ${
+                          className={`font-mono text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 border ${
                             isPopular
-                              ? 'bg-[#FB923C]/15 text-[#FB923C] border-[#FB923C]/45'
+                              ? 'bg-[#F97316] text-[#111113] border-[#111113]'
                               : isSelected
-                                ? 'bg-[#29B6F6]/20 text-[#38BDF8] border-[#38BDF8]/50'
-                                : 'bg-[#0B0D12] text-[#94A3B8] border-white/10'
+                                ? 'bg-[#111113] text-[#F8F6F2] border-[#111113]'
+                                : 'bg-[#EFECE6] text-[#27272A] border-[#111113]/40'
                           }`}
                         >
                           {pkg.tag}
                         </span>
                       </div>
-                      <p className="text-xs sm:text-sm text-[#CBD5E1] mt-1 leading-relaxed">
+                      <p className="text-xs sm:text-sm text-[#27272A] mt-1.5 leading-relaxed">
                         {pkg.description}
                       </p>
                     </div>
                   </label>
 
                   <div className="text-right shrink-0">
-                    <span className="block font-display italic text-2xl font-bold tabular-nums text-white leading-none">
+                    <span className="block font-mono text-lg sm:text-xl font-bold tabular-nums text-[#111113] leading-none">
                       {formatBRL(price)}
                     </span>
-                    <span className="inline-flex items-center gap-1 text-xs tabular-nums text-[#94A3B8] mt-1.5">
-                      <Clock className="w-3.5 h-3.5 text-[#38BDF8]" aria-hidden="true" />
+                    <span className="font-mono inline-flex items-center gap-1 text-[11px] font-semibold tabular-nums text-[#C2410C] mt-1.5">
+                      <Clock className="w-3.5 h-3.5" aria-hidden="true" />
                       {formatDuration(duration)}
                     </span>
                   </div>
@@ -100,7 +98,7 @@ export function PackageSelector({
                     type="button"
                     onClick={() => setExpandedPackageId(isExpanded ? null : pkg.id)}
                     aria-expanded={isExpanded}
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#38BDF8] hover:underline py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+                    className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-[#0369A1] hover:underline py-1 rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0369A1]"
                   >
                     <span>
                       {isExpanded
@@ -116,11 +114,11 @@ export function PackageSelector({
                   </button>
 
                   {isExpanded && (
-                    <ul className="animate-panel-switch mt-2.5 pt-2.5 border-t border-white/10 space-y-1.5">
+                    <ul className="animate-panel-switch mt-2.5 pt-3 border-t border-dashed border-[#111113]/35 space-y-1.5">
                       {pkg.included.map((item) => (
-                        <li key={item} className="flex items-start gap-2 text-xs text-[#CBD5E1]">
+                        <li key={item} className="flex items-start gap-2 text-xs text-[#111113]">
                           <Check
-                            className="w-3.5 h-3.5 text-[#38BDF8] shrink-0 mt-0.5"
+                            className="w-3.5 h-3.5 text-[#0369A1] shrink-0 mt-0.5"
                             aria-hidden="true"
                           />
                           <span>{item}</span>

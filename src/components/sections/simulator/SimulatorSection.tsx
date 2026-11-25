@@ -44,26 +44,33 @@ export function SimulatorSection({
   quoteSummary,
 }: SimulatorSectionProps) {
   return (
-    <section id="simulador" className="w-full bg-[#0B0D12] text-white">
-      <div className="w-full px-4 sm:px-6 lg:px-10 xl:px-14 py-12 sm:py-16">
+    <section
+      id="simulador"
+      className="w-full bg-[#EFECE6] bg-concrete-grain text-[#111113] overflow-x-clip"
+    >
+      <div className="w-full px-4 sm:px-6 lg:px-10 xl:px-14 py-14 sm:py-20">
         <ScrollReveal direction="up">
-          <div className="max-w-2xl mb-8">
-            <span className="text-xs font-bold uppercase tracking-[0.18em] text-[#38BDF8] block mb-2">
-              Simulador de Pintura & Estética + WhatsApp
-            </span>
-            <h2 className="font-display italic text-3xl sm:text-4xl font-bold tracking-tight text-white mb-2">
-              Escolha a categoria e simule seu projeto de{' '}
-              <span className="text-hydro-dip pr-1">pintura</span>.
+          <div className="max-w-3xl mb-10">
+            <div className="flex items-center gap-2.5 mb-2">
+              <span className="font-mono text-sm sm:text-base font-bold text-[#C2410C]">
+                03 //
+              </span>
+              <span className="font-mono text-xs font-bold uppercase tracking-[0.16em] text-[#52525B]">
+                Ficha de Orçamento • Ordem de Serviço + WhatsApp
+              </span>
+            </div>
+            <h2 className="font-display text-4xl sm:text-6xl font-extrabold uppercase tracking-tight leading-[0.92] text-[#111113] mb-3">
+              Monte sua <span className="text-[#0369A1]">ordem de pintura</span> sob medida.
             </h2>
-            <p className="text-sm text-[#94A3B8]">
-              Valores base de referência editáveis no código. Os valores e prazos estimados são
-              atualizados automaticamente conforme a categoria ou porte do veículo.
+            <p className="text-sm sm:text-base text-[#27272A] leading-relaxed">
+              Selecione a categoria, a modalidade principal e os detalhes desejados. Os valores e
+              prazos estimados são calculados automaticamente conforme sua escolha.
             </p>
           </div>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Esquerda (7 cols): Passos do simulador */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          {/* Esquerda (7 cols): Ficha de Bancada com filetes estruturais pretos */}
           <ScrollReveal direction="left" delayMs={80} className="lg:col-span-7 space-y-8 min-w-0">
             <VehicleSizeSelector vehicleSize={vehicleSize} onSelectSize={setVehicleSize} />
 
@@ -89,7 +96,7 @@ export function SimulatorSection({
             />
           </ScrollReveal>
 
-          {/* Direita (5 cols): Painel Lateral Sticky Contrastado */}
+          {/* Direita (5 cols): Talão / Comprovante de Ordem de Serviço */}
           <QuoteSummaryPanel quoteSummary={quoteSummary} />
         </div>
       </div>

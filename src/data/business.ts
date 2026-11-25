@@ -4,7 +4,7 @@ export const BUSINESS_CONFIG: BusinessConfig = {
   name: 'DS Arte Automotiva',
   shortName: 'DS ARTE AUTOMOTIVA',
   ownerName: 'Diogo Soares',
-  tagline: 'Customização é aqui !!',
+  tagline: 'DIOGO SOARES • PINTURA CUSTOM & ESTÉTICA',
   logoUrl: '/logo.jpeg',
   specialtiesHighlight: [
     'Cristal 3D',

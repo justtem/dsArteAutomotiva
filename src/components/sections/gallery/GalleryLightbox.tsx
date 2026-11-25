@@ -72,35 +72,34 @@ export function GalleryLightbox({
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
-      className="animate-modal-backdrop fixed inset-0 z-50 bg-[#07090C]/90 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4"
+      className="animate-modal-backdrop fixed inset-0 z-50 bg-[#0B0B0D]/92 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4"
     >
       <div
         key={item.id}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
-        className="animate-modal-card surface-gunmetal w-full sm:max-w-2xl rounded-t-3xl sm:rounded-2xl overflow-hidden max-h-[92dvh] flex flex-col shadow-2xl"
+        className="animate-modal-card bg-[#141418] border-t-2 sm:border-2 border-[#27272F] w-full sm:max-w-2xl rounded-none overflow-hidden max-h-[92dvh] flex flex-col shadow-2xl"
       >
-        {/* Indicador de folha deslizante no celular */}
-        <div className="sm:hidden flex justify-center pt-2.5 pb-1 bg-[#0B0D12]">
-          <span className="w-11 h-1.5 rounded-full bg-white/20" aria-hidden="true" />
+        <div className="sm:hidden flex justify-center pt-2.5 pb-1 bg-[#0B0B0D]">
+          <span className="w-10 h-1 rounded-[2px] bg-[#3F3F46]" aria-hidden="true" />
         </div>
 
-        {/* Cabeçalho do modal */}
-        <div className="px-4 sm:px-5 py-3 bg-[#0B0D12] border-b border-white/10 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2 min-w-0">
-            <span className="px-2.5 py-0.5 rounded-full bg-gradient-to-r from-[#0284C7] to-[#29B6F6] text-white text-[10px] sm:text-[11px] font-bold uppercase shrink-0">
+        {/* Cabeçalho */}
+        <div className="px-4 sm:px-5 py-3.5 bg-[#0B0B0D] border-b border-[#27272F] flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <span className="font-mono px-2 py-0.5 rounded-[2px] bg-[#0EA5E9] text-[#0B0B0D] text-[10px] font-bold uppercase tracking-wider shrink-0">
               {item.category}
             </span>
             <h3
               id="lightbox-title"
-              className="font-display italic text-lg sm:text-xl font-bold text-white truncate"
+              className="font-display text-xl sm:text-2xl font-extrabold uppercase tracking-tight text-[#F5F5F4] truncate"
             >
               {item.title}
             </h3>
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
-            <span className="text-xs font-mono tabular-nums text-[#FB923C]">
+            <span className="font-mono text-xs font-bold tabular-nums text-[#F97316]">
               {currentIndex + 1}/{totalItems}
             </span>
             <button
@@ -108,53 +107,48 @@ export function GalleryLightbox({
               type="button"
               onClick={onClose}
               aria-label="Fechar visualização"
-              className="btn-chrome-dark w-9 h-9 rounded-xl text-white flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+              className="btn-dark-secondary w-9 h-9 flex items-center justify-center"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
         </div>
 
-        {/* Corpo do modal */}
+        {/* Corpo */}
         <div className="overflow-y-auto p-4 sm:p-5 space-y-4 sm:space-y-5">
-          <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] bg-[#0B0D12] border border-white/10 rounded-xl overflow-hidden">
+          <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] bg-[#0B0B0D] border border-[#27272F] rounded-[2px] overflow-hidden">
             {item.imageUrl ? (
               <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover" />
             ) : (
-              <>
-                <GalleryIllustration visualKey={item.visualKey} />
-                <span className="absolute bottom-2.5 left-2.5 right-2.5 sm:right-auto px-2.5 py-1 rounded-full bg-[#0B0D12]/90 border border-white/10 text-[10px] sm:text-[11px] text-[#94A3B8] truncate text-center sm:text-left">
-                  Deslize para o lado para navegar • Espaço pronto para foto real
-                </span>
-              </>
+              <GalleryIllustration visualKey={item.visualKey} />
             )}
           </div>
 
-          <div className="grid grid-cols-2 gap-3 bg-[#0B0D12] border border-white/10 p-3.5 rounded-xl text-xs">
+          <div className="grid grid-cols-2 gap-3 bg-[#0B0B0D] border border-[#27272F] p-3.5 rounded-[2px] text-xs">
             <div>
-              <span className="block text-[#94A3B8] uppercase tracking-wider text-[10px]">
+              <span className="font-mono block text-[#A1A1AA] uppercase tracking-wider text-[10px]">
                 Aplicação
               </span>
-              <span className="font-semibold text-white mt-0.5 block">{item.vehicle}</span>
+              <span className="font-semibold text-[#F5F5F4] mt-0.5 block">{item.vehicle}</span>
             </div>
             <div>
-              <span className="block text-[#94A3B8] uppercase tracking-wider text-[10px]">
-                Tempo médio
+              <span className="font-mono block text-[#A1A1AA] uppercase tracking-wider text-[10px]">
+                Prazo de referência
               </span>
-              <span className="font-bold tabular-nums text-[#FB923C] mt-0.5 block">
+              <span className="font-mono font-bold tabular-nums text-[#F97316] mt-0.5 block">
                 {item.duration}
               </span>
             </div>
           </div>
 
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#38BDF8] mb-2.5">
+            <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-[#0EA5E9] mb-2.5">
               Etapas técnicas executadas
             </h4>
             <ul className="space-y-2">
               {item.technicalSteps.map((step) => (
-                <li key={step} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#CBD5E1]">
-                  <Check className="w-4 h-4 text-[#38BDF8] shrink-0 mt-0.5" aria-hidden="true" />
+                <li key={step} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#E4E4E7]">
+                  <Check className="w-4 h-4 text-[#0EA5E9] shrink-0 mt-0.5" aria-hidden="true" />
                   <span>{step}</span>
                 </li>
               ))}
@@ -162,13 +156,13 @@ export function GalleryLightbox({
           </div>
         </div>
 
-        {/* Rodapé do modal com safe-area no iPhone */}
-        <div className="px-4 sm:px-5 pt-3.5 pb-safe bg-[#0B0D12] border-t border-white/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+        {/* Rodapé */}
+        <div className="px-4 sm:px-5 pt-3.5 pb-safe bg-[#0B0B0D] border-t border-[#27272F] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
           <div className="grid grid-cols-2 sm:flex items-center gap-2">
             <button
               type="button"
               onClick={onPrev}
-              className="btn-chrome-dark inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-white min-h-[44px]"
+              className="btn-dark-secondary inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 text-xs font-bold uppercase tracking-wider min-h-[44px]"
             >
               <ChevronLeft className="w-4 h-4" aria-hidden="true" />
               <span>Anterior</span>
@@ -176,7 +170,7 @@ export function GalleryLightbox({
             <button
               type="button"
               onClick={onNext}
-              className="btn-chrome-dark inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-white min-h-[44px]"
+              className="btn-dark-secondary inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 text-xs font-bold uppercase tracking-wider min-h-[44px]"
             >
               <span>Próximo</span>
               <ChevronRight className="w-4 h-4" aria-hidden="true" />
@@ -188,16 +182,18 @@ export function GalleryLightbox({
               <button
                 type="button"
                 onClick={() => onToggleCart(item.catalogId!)}
-                className={`inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold border min-h-[44px] ${
-                  isInCart ? 'option-selected-glow text-[#38BDF8]' : 'btn-chrome-dark text-white'
+                className={`inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-[2px] font-mono text-xs font-bold uppercase tracking-wider border min-h-[44px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0EA5E9] ${
+                  isInCart
+                    ? 'bg-[#0EA5E9] text-[#0B0B0D] border-[#0EA5E9]'
+                    : 'btn-dark-secondary'
                 }`}
               >
                 {isInCart ? (
-                  <Check className="w-4 h-4 text-[#38BDF8]" aria-hidden="true" />
+                  <Check className="w-4 h-4 shrink-0" aria-hidden="true" />
                 ) : (
-                  <Plus className="w-4 h-4 text-[#38BDF8]" aria-hidden="true" />
+                  <Plus className="w-4 h-4 text-[#0EA5E9] shrink-0" aria-hidden="true" />
                 )}
-                <span>{isInCart ? 'Na Lista de Orçamento' : '+ Adicionar à Lista'}</span>
+                <span>{isInCart ? 'Na Lista de Orçamento' : 'Adicionar à Lista'}</span>
               </button>
             )}
 
@@ -205,7 +201,7 @@ export function GalleryLightbox({
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-liquid-coat btn-chrome-shine inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-white text-sm font-bold min-h-[46px]"
+              className="btn-dark-primary inline-flex items-center justify-center gap-2 px-5 py-3 text-xs sm:text-sm font-bold uppercase tracking-wider min-h-[46px]"
             >
               <MessageCircle className="w-4 h-4" aria-hidden="true" />
               <span>Consultar no WhatsApp</span>

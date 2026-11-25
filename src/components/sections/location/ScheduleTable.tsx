@@ -7,34 +7,43 @@ interface ScheduleTableProps {
 
 export function ScheduleTable({ status }: ScheduleTableProps) {
   return (
-    <div className="surface-gunmetal rounded-2xl overflow-hidden">
-      <div className="px-4 py-3 bg-[#0B0D12]/70 border-b border-white/10 flex items-center justify-between gap-2">
-        <span className="text-xs font-bold uppercase tracking-wider text-white">
+    <div className="w-full">
+      <div className="px-5 py-3 bg-[#EFECE6] border-b border-[#111113] flex items-center justify-between gap-2">
+        <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#111113]">
           Horário de Funcionamento
         </span>
-        <span className="text-xs font-bold tabular-nums text-[#FB923C]">{status.badgeText}</span>
+        <span className="font-mono text-[11px] font-bold tabular-nums text-[#C2410C]">
+          {status.todayHours}
+        </span>
       </div>
       <table className="w-full text-sm border-collapse">
-        <tbody className="divide-y divide-white/8">
+        <tbody className="divide-y divide-[#111113]/20">
           {BUSINESS_CONFIG.schedule.map((row) => {
             const isToday = row.day === status.dayOfWeek;
             return (
-              <tr key={row.day} className={isToday ? 'bg-[#1A2232]/75' : 'bg-transparent'}>
-                <td className="px-4 py-2.5 text-white">
-                  <span className={isToday ? 'font-bold' : 'text-[#CBD5E1]'}>{row.label}</span>
+              <tr
+                key={row.day}
+                className={isToday ? 'bg-[#111113] text-[#F8F6F2]' : 'bg-[#F8F6F2] text-[#111113]'}
+              >
+                <td className="px-5 py-2.5">
+                  <span className={isToday ? 'font-bold text-[#F8F6F2]' : 'text-[#27272A]'}>
+                    {row.label}
+                  </span>
                   {isToday && (
-                    <span className="ml-2 inline-block px-2 py-0.5 text-[10px] font-bold uppercase bg-gradient-to-r from-[#0284C7] to-[#29B6F6] text-white rounded-full">
+                    <span className="font-mono ml-2 inline-block px-2 py-0.5 text-[10px] font-bold uppercase bg-[#F97316] text-[#111113]">
                       Hoje
                     </span>
                   )}
                 </td>
                 <td
-                  className={`px-4 py-2.5 text-right tabular-nums ${
+                  className={`font-mono px-5 py-2.5 text-right text-xs tabular-nums ${
                     row.closed
-                      ? 'text-[#64748B]'
+                      ? isToday
+                        ? 'text-[#A1A1AA]'
+                        : 'text-[#52525B]'
                       : isToday
-                        ? 'font-bold text-white'
-                        : 'text-[#CBD5E1]'
+                        ? 'font-bold text-[#0EA5E9]'
+                        : 'font-semibold text-[#111113]'
                   }`}
                 >
                   {row.closed ? 'Fechado' : `${row.open} às ${row.close}`}

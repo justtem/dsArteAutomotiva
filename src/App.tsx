@@ -13,7 +13,7 @@ import {
   LocationSection,
   SimulatorSection,
 } from './components/sections';
-import { PaintDripDivider, ToastNotification } from './components/ui';
+import { CustomShopMarquee, ToastNotification } from './components/ui';
 import { BUSINESS_CONFIG } from './data';
 import { useBusinessStatus, useQuoteCart, useQuoteSimulator } from './hooks';
 import { buildWhatsAppUrl } from './utils';
@@ -29,7 +29,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="w-full min-h-screen bg-[#0B0D12] text-white antialiased overflow-x-hidden font-sans">
+    <div className="w-full min-h-screen bg-[#0B0B0D] text-[#F5F5F4] antialiased overflow-x-clip font-sans">
       <Navbar
         status={status}
         quickWhatsAppUrl={quickWhatsAppUrl}
@@ -38,19 +38,25 @@ export default function App() {
       />
 
       <main>
+        {/* ESCURO (#0B0B0D): Pôster Editorial + Palco Widescreen do Inspetor */}
         <HeroSection status={status} quickWhatsAppUrl={quickWhatsAppUrl} />
 
-        {/* Transição de Tinta Automotiva Derretida (Hero -> Antes e Depois) */}
-        <PaintDripDivider topColor="#0B0D12" bottomColor="#12161F" accentVariant="cyan" />
+        {/* FAIXA MARQUEE DE ALTO CONTRASTE (Transição Escuro -> Concreto) */}
+        <CustomShopMarquee />
 
+        {/* 01 // CLARO CONCRETO (#EFECE6): Comparador Antes e Depois */}
         <BeforeAfterSection
           onApplyCaseToSimulator={simulator.applyCaseToSimulator}
           onAddCatalogCaseToCart={quoteCart.addAndOpenCatalogItem}
         />
 
-        {/* Transição de Tinta Derretida (Antes e Depois -> Simulador) */}
-        <PaintDripDivider topColor="#12161F" bottomColor="#0B0D12" accentVariant="flame" />
+        {/* 02 // ESCURO ASFALTO (#0B0B0D): Portfólio / Galeria Assimétrica */}
+        <GallerySection
+          cartItems={quoteCart.cartItems}
+          onToggleCartItem={quoteCart.toggleCartItem}
+        />
 
+        {/* 03 // CLARO CONCRETO (#EFECE6): Simulador estilo Ordem de Serviço */}
         <SimulatorSection
           vehicleSize={simulator.vehicleSize}
           setVehicleSize={simulator.setVehicleSize}
@@ -67,21 +73,10 @@ export default function App() {
           quoteSummary={simulator.quoteSummary}
         />
 
-        {/* Transição de Tinta Derretida (Simulador -> Galeria & Custom) */}
-        <PaintDripDivider topColor="#0B0D12" bottomColor="#12161F" accentVariant="chrome" />
-
-        <GallerySection
-          cartItems={quoteCart.cartItems}
-          onToggleCartItem={quoteCart.toggleCartItem}
-        />
-
-        {/* Transição de Tinta Derretida (Galeria -> Localização) */}
-        <PaintDripDivider topColor="#12161F" bottomColor="#0B0D12" accentVariant="cyan" />
-
+        {/* 04 // CLARO PEDRA (#E4E0D8) com divisória estrutural preta 2px */}
         <LocationSection status={status} />
       </main>
 
-      <PaintDripDivider topColor="#0B0D12" bottomColor="#07090C" accentVariant="chrome" />
       <Footer />
 
       <FloatingCartButton

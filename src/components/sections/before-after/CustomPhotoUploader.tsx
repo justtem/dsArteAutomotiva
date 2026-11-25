@@ -17,14 +17,14 @@ export function CustomPhotoUploader({
   onReset,
 }: CustomPhotoUploaderProps) {
   return (
-    <div className="mt-4 p-4 bg-[#121720] border border-[#1E293B] rounded-md">
-      <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+    <div className="p-4 sm:p-5 bg-[#F8F6F2] border-2 border-[#111113]">
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-3.5">
         <div>
-          <span className="text-xs font-bold uppercase tracking-wider text-[#60A5FA] block">
-            Colocar fotos reais do carro / peça — {activeTabLabel}
+          <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#0369A1] block">
+            Carregar fotos reais da peça / veículo — {activeTabLabel}
           </span>
-          <p className="text-[11px] text-[#94A3B8] mt-0.5">
-            Selecione as fotos de Antes e Depois abaixo para comparar no controle deslizante acima.
+          <p className="text-xs text-[#27272A] mt-0.5">
+            Selecione as imagens de Antes e Depois abaixo para testar diretamente no comparador.
           </p>
         </div>
 
@@ -32,7 +32,7 @@ export function CustomPhotoUploader({
           <button
             type="button"
             onClick={onReset}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-sm bg-[#07090C] border border-[#1E293B] hover:border-[#0066FF] text-xs font-semibold text-[#60A5FA] transition-colors"
+            className="btn-ink-outline inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-wider"
           >
             <RotateCcw className="w-3.5 h-3.5" aria-hidden="true" />
             <span>Remover fotos desta aba</span>
@@ -42,24 +42,24 @@ export function CustomPhotoUploader({
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {/* Slot Foto ANTES */}
-        <label className="group flex items-center gap-3 p-3 bg-[#07090C] border border-dashed border-[#334155] hover:border-[#0066FF] rounded-sm cursor-pointer transition-colors">
+        <label className="group flex items-center gap-3 p-3 bg-[#EFECE6] border-2 border-dashed border-[#111113]/45 hover:border-[#111113] rounded-[2px] cursor-pointer transition-colors">
           {customBeforeUrl ? (
             <img
               src={customBeforeUrl}
               alt="Miniatura Antes"
-              className="w-14 h-11 rounded-sm object-cover border border-[#1E293B] shrink-0"
+              className="w-14 h-11 rounded-[2px] object-cover border border-[#111113] shrink-0"
             />
           ) : (
-            <div className="w-14 h-11 rounded-sm bg-[#121720] border border-[#1E293B] flex items-center justify-center shrink-0 group-hover:border-[#0066FF]">
-              <ImagePlus className="w-5 h-5 text-[#60A5FA]" aria-hidden="true" />
+            <div className="w-14 h-11 rounded-[2px] bg-[#F8F6F2] border border-[#111113] flex items-center justify-center shrink-0">
+              <ImagePlus className="w-5 h-5 text-[#0369A1]" aria-hidden="true" />
             </div>
           )}
 
           <div className="min-w-0 flex-1">
-            <span className="block text-xs font-bold text-white truncate">
+            <span className="block text-xs font-bold text-[#111113] truncate">
               {customBeforeUrl ? 'Foto ANTES carregada' : '1. Foto ANTES (peça ou veículo)'}
             </span>
-            <span className="block text-[11px] text-[#60A5FA] font-medium mt-0.5">
+            <span className="block text-[11px] text-[#0369A1] font-semibold mt-0.5">
               {customBeforeUrl ? 'Clique para trocar imagem' : 'Clique para escolher foto'}
             </span>
           </div>
@@ -73,24 +73,24 @@ export function CustomPhotoUploader({
         </label>
 
         {/* Slot Foto DEPOIS */}
-        <label className="group flex items-center gap-3 p-3 bg-[#07090C] border border-dashed border-[#334155] hover:border-[#0066FF] rounded-sm cursor-pointer transition-colors">
+        <label className="group flex items-center gap-3 p-3 bg-[#EFECE6] border-2 border-dashed border-[#111113]/45 hover:border-[#111113] rounded-[2px] cursor-pointer transition-colors">
           {customAfterUrl ? (
             <img
               src={customAfterUrl}
               alt="Miniatura Depois"
-              className="w-14 h-11 rounded-sm object-cover border border-[#1E293B] shrink-0"
+              className="w-14 h-11 rounded-[2px] object-cover border border-[#111113] shrink-0"
             />
           ) : (
-            <div className="w-14 h-11 rounded-sm bg-[#121720] border border-[#1E293B] flex items-center justify-center shrink-0 group-hover:border-[#0066FF]">
-              <ImagePlus className="w-5 h-5 text-[#60A5FA]" aria-hidden="true" />
+            <div className="w-14 h-11 rounded-[2px] bg-[#F8F6F2] border border-[#111113] flex items-center justify-center shrink-0">
+              <ImagePlus className="w-5 h-5 text-[#0369A1]" aria-hidden="true" />
             </div>
           )}
 
           <div className="min-w-0 flex-1">
-            <span className="block text-xs font-bold text-white truncate">
+            <span className="block text-xs font-bold text-[#111113] truncate">
               {customAfterUrl ? 'Foto DEPOIS carregada' : '2. Foto DEPOIS (pintura pronta)'}
             </span>
-            <span className="block text-[11px] text-[#60A5FA] font-medium mt-0.5">
+            <span className="block text-[11px] text-[#0369A1] font-semibold mt-0.5">
               {customAfterUrl ? 'Clique para trocar imagem' : 'Clique para escolher foto'}
             </span>
           </div>
@@ -104,11 +104,10 @@ export function CustomPhotoUploader({
         </label>
       </div>
 
-      <p className="mt-2.5 text-[11px] text-[#94A3B8] flex items-center gap-1.5">
-        <ShieldCheck className="w-3.5 h-3.5 text-[#60A5FA] shrink-0" aria-hidden="true" />
+      <p className="mt-2.5 text-[11px] text-[#52525B] flex items-center gap-1.5">
+        <ShieldCheck className="w-3.5 h-3.5 text-[#0369A1] shrink-0" aria-hidden="true" />
         <span>
-          Dica LGPD: cubra as placas dos veículos ao publicar fotos definitivas em{' '}
-          <code className="text-[#CBD5E1]">src/data/beforeAfter.ts</code>.
+          Prévia 100% local: as imagens escolhidas permanecem apenas no seu navegador.
         </span>
       </p>
     </div>

@@ -9,12 +9,10 @@ interface VehicleSizeSelectorProps {
 
 export function VehicleSizeSelector({ vehicleSize, onSelectSize }: VehicleSizeSelectorProps) {
   return (
-    <div>
-      <div className="flex items-center gap-2.5 mb-3.5">
-        <span className="w-6 h-6 rounded-lg bg-gradient-to-br from-[#29B6F6] to-[#0284C7] text-white text-xs font-bold tabular-nums flex items-center justify-center shadow">
-          1
-        </span>
-        <h3 className="text-sm font-bold uppercase tracking-wider text-white">
+    <div className="border-t-2 border-[#111113] pt-5">
+      <div className="flex items-baseline gap-2.5 mb-4">
+        <span className="font-mono text-sm font-bold text-[#C2410C]">01 //</span>
+        <h3 className="font-display text-2xl sm:text-[26px] font-extrabold uppercase tracking-tight leading-none text-[#111113]">
           Categoria ou porte do veículo
         </h3>
       </div>
@@ -33,25 +31,33 @@ export function VehicleSizeSelector({ vehicleSize, onSelectSize }: VehicleSizeSe
               role="radio"
               aria-checked={isSelected}
               onClick={() => onSelectSize(size.id)}
-              className={`option-interactive group p-4 rounded-2xl border text-left min-h-[94px] flex flex-col justify-between focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] ${
+              className={`group p-4 rounded-[2px] text-left min-h-[100px] flex flex-col justify-between transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0369A1] ${
                 isSelected
-                  ? 'option-selected-glow text-white'
-                  : 'bg-[#141821] text-[#CBD5E1] border-white/10 hover:border-[#38BDF8] hover:text-white'
+                  ? 'bg-[#111113] text-[#F8F6F2] border-2 border-[#111113] shadow-[3px_3px_0px_#0EA5E9]'
+                  : 'bg-[#F8F6F2] text-[#111113] border-2 border-[#111113]/25 hover:border-[#111113]'
               }`}
             >
               <VehicleSilhouette
                 type={size.id}
-                className={`w-11 h-6 transition-transform duration-300 ${
-                  isSelected
-                    ? 'text-[#38BDF8] scale-112 -translate-y-0.5'
-                    : 'text-[#94A3B8] group-hover:text-[#CBD5E1] group-hover:translate-x-0.5'
+                className={`w-11 h-6 transition-colors ${
+                  isSelected ? 'text-[#0EA5E9]' : 'text-[#3F3F46] group-hover:text-[#111113]'
                 }`}
               />
-              <div className="mt-2">
-                <span className="font-display italic block text-base font-bold leading-tight text-white">
+              <div className="mt-2.5">
+                <span
+                  className={`font-display block text-xl font-extrabold uppercase tracking-wide leading-none ${
+                    isSelected ? 'text-[#F8F6F2]' : 'text-[#111113]'
+                  }`}
+                >
                   {size.label}
                 </span>
-                <span className="block text-[11px] text-[#94A3B8] mt-0.5">{size.note}</span>
+                <span
+                  className={`block text-[11px] mt-1 leading-snug ${
+                    isSelected ? 'text-[#E4E4E7]' : 'text-[#3F3F46]'
+                  }`}
+                >
+                  {size.note}
+                </span>
               </div>
             </button>
           );
