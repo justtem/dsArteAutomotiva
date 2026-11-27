@@ -32,8 +32,8 @@ export function getSaoPauloNow(): { dayOfWeek: number; minutesFromMidnight: numb
 
 export function parseTimeToMinutes(hhmm: string | null): number {
   if (!hhmm) return 0;
-  const [h, m] = hhmm.split(':').map(Number);
-  return h * 60 + m;
+  const [h = 0, m = 0] = hhmm.split(':').map(Number);
+  return (Number.isFinite(h) ? h : 0) * 60 + (Number.isFinite(m) ? m : 0);
 }
 
 export function getBusinessStatus(schedule: ScheduleDay[]): BusinessStatus {

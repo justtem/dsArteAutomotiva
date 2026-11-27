@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { ClipboardList, MessageCircle, Trash2, X } from 'lucide-react';
+import { ClipboardList, MessageCircle, ShieldCheck, Trash2, X } from 'lucide-react';
 import type { CustomCatalogService } from '../../types';
 
 interface QuoteCartModalProps {
@@ -9,6 +9,7 @@ interface QuoteCartModalProps {
   onClose: () => void;
   onRemoveItem: (id: number) => void;
   onClear: () => void;
+  onOpenPrivacyNotice?: () => void;
 }
 
 export function QuoteCartModal({
@@ -18,6 +19,7 @@ export function QuoteCartModal({
   onClose,
   onRemoveItem,
   onClear,
+  onOpenPrivacyNotice,
 }: QuoteCartModalProps) {
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
 
@@ -114,38 +116,59 @@ export function QuoteCartModal({
           )}
         </div>
 
-        {/* Rodapé com safe-area iOS */}
-        <div className="px-5 pt-3.5 pb-safe bg-[#EFECE6] border-t-2 border-[#111113] flex flex-col sm:flex-row gap-2.5">
-          {items.length > 0 && (
-            <button
-              type="button"
-              onClick={onClear}
-              className="btn-ink-outline px-4 py-3 text-xs sm:text-sm font-bold uppercase tracking-wider min-h-[46px]"
-            >
-              Limpar Lista
-            </button>
-          )}
+        {/* Rodapé com aviso contextual e safe-area iOS */}
+        <div className="px-5 pt-3.5 pb-safe bg-[#EFECE6] border-t-2 border-[#111113] space-y-2.5">
+          <div className="flex flex-col sm:flex-row gap-2.5">
+            {items.length > 0 && (
+              <button
+                type="button"
+                onClick={onClear}
+                className="btn-ink-outline px-4 py-3 text-xs sm:text-sm font-bold uppercase tracking-wider min-h-[46px]"
+              >
+                Limpar Lista
+              </button>
+            )}
 
-          {items.length > 0 ? (
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-cyan-stamp flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 text-xs sm:text-sm font-bold uppercase tracking-wider min-h-[48px]"
-            >
-              <MessageCircle className="w-4 h-4" aria-hidden="true" />
-              <span>Enviar Lista no WhatsApp</span>
-            </a>
-          ) : (
-            <button
-              type="button"
-              disabled
-              className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-[2px] bg-[#E4E0D8] border-2 border-[#111113]/25 text-[#52525B] text-xs sm:text-sm font-bold uppercase tracking-wider cursor-not-allowed min-h-[48px]"
-            >
-              <MessageCircle className="w-4 h-4" aria-hidden="true" />
-              <span>Enviar Lista no WhatsApp</span>
-            </button>
-          )}
+            {items.length > 0 ? (
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-cyan-stamp flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 text-xs sm:text-sm font-bold uppercase tracking-wider min-h-[48px]"
+              >
+                <MessageCircle className="w-4 h-4" aria-hidden="true" />
+                <span>Enviar Lista no WhatsApp</span>
+              </a>
+            ) : (
+              <button
+                type="button"
+                disabled
+                className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-[2px] bg-[#E4E0D8] border-2 border-[#111113]/25 text-[#52525B] text-xs sm:text-sm font-bold uppercase tracking-wider cursor-not-allowed min-h-[48px]"
+              >
+                <MessageCircle className="w-4 h-4" aria-hidden="true" />
+                <span>Enviar Lista no WhatsApp</span>
+              </button>
+            )}
+          </div>
+
+          <p className="text-[11px] text-[#52525B] leading-snug flex items-start gap-1.5">
+            <ShieldCheck className="w-3.5 h-3.5 text-[#0369A1] shrink-0 mt-0.5" aria-hidden="true" />
+            <span>
+              Redirecionamento externo ao WhatsApp (Meta) para atendimento de orçamento.{' '}
+              {onOpenPrivacyNotice && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    onClose();
+                    onOpenPrivacyNotice();
+                  }}
+                  className="underline font-semibold text-[#0369A1] hover:text-[#111113] focus-visible:outline-2 focus-visible:outline-[#0369A1]"
+                >
+                  Aviso de Privacidade
+                </button>
+              )}
+            </span>
+          </p>
         </div>
       </div>
     </div>

@@ -4,6 +4,15 @@ export const BUSINESS_CONFIG: BusinessConfig = {
   name: 'DS Arte Automotiva',
   shortName: 'DS ARTE AUTOMOTIVA',
   ownerName: 'Diogo Soares',
+  controllerDisplayName: 'Diogo Soares — DS Arte Automotiva',
+  // Opcional: preencha Razão Social e CNPJ caso deseje exibi-los formalmente no rodapé e Aviso LGPD
+  legalName: undefined,
+  cnpj: undefined,
+  // Opcional: preencha um e-mail dedicado caso deseje somá-lo ao canal oficial de WhatsApp LGPD
+  privacyEmail: undefined,
+  privacyWhatsappMessage:
+    'Olá Diogo! Gostaria de realizar uma solicitação referente aos meus dados pessoais (LGPD — Art. 18) na DS Arte Automotiva.',
+  privacyUpdatedAt: '27/11/2026',
   tagline: 'DIOGO SOARES • PINTURA CUSTOM & ESTÉTICA',
   logoUrl: '/logo.jpeg',
   specialtiesHighlight: [

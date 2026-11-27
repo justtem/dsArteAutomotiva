@@ -1,7 +1,7 @@
-import { Truck } from 'lucide-react';
+import { AlertTriangle, Truck } from 'lucide-react';
 import { BUSINESS_CONFIG } from '../../../data';
 import type { PeriodPreference } from '../../../types';
-import { formatBRL, sanitizeText } from '../../../utils';
+import { containsSensitiveIdentifier, formatBRL, sanitizeText } from '../../../utils';
 
 const PERIOD_OPTIONS: PeriodPreference[] = ['Manhã', 'Tarde', 'Próximo horário'];
 
@@ -22,12 +22,14 @@ export function SchedulePreferences({
   vehicleModel,
   onChangeVehicleModel,
 }: SchedulePreferencesProps) {
+  const hasSensitivePattern = containsSensitiveIdentifier(vehicleModel);
+
   return (
     <div className="border-t-2 border-[#111113] pt-5">
       <div className="flex items-baseline gap-2.5 mb-4">
         <span className="font-mono text-sm font-bold text-[#C2410C]">04 //</span>
         <h3 className="font-display text-2xl sm:text-[26px] font-extrabold uppercase tracking-tight leading-none text-[#111113]">
-          Período, Leva e Traz e identificação
+          Período, Leva e Traz e peça/modelo
         </h3>
       </div>
 
@@ -76,10 +78,31 @@ export function SchedulePreferences({
               type="text"
               maxLength={48}
               value={vehicleModel}
+              aria-describedby="vehicle-model-privacy-hint"
               onChange={(e) => onChangeVehicleModel(sanitizeText(e.target.value))}
               placeholder="Ex.: Capacete Cross, Rodas Aro 17, Tanque CG"
               className="w-full px-3.5 py-2.5 rounded-[2px] border-2 border-[#111113] bg-white text-base sm:text-sm text-[#111113] placeholder:text-[#52525B] min-h-[44px] focus:outline-none focus:ring-2 focus:ring-[#0EA5E9]"
             />
+            <p id="vehicle-model-privacy-hint" className="text-[11px] text-[#52525B] mt-1.5">
+              Informe apenas peça ou modelo. Não digite placa, CPF ou endereço residencial aqui.
+            </p>
+
+            {hasSensitivePattern && (
+              <p
+                role="status"
+                aria-live="polite"
+                className="mt-2 p-2 bg-[#FFF7ED] border border-[#C2410C] text-[11px] text-[#7C2D12] font-medium flex items-start gap-1.5"
+              >
+                <AlertTriangle
+                  className="w-3.5 h-3.5 text-[#C2410C] shrink-0 mt-0.5"
+                  aria-hidden="true"
+                />
+                <span>
+                  Para sua privacidade, padrões de placa, CPF, telefone ou e-mail são omitidos
+                  automaticamente do link de mensagem do WhatsApp.
+                </span>
+              </p>
+            )}
           </div>
         </div>
 

@@ -1,6 +1,6 @@
 import type { ProcessHotspot } from '../types';
 
-export const PROCESS_HOTSPOTS: ProcessHotspot[] = [
+export const PROCESS_HOTSPOTS: [ProcessHotspot, ...ProcessHotspot[]] = [
   {
     id: 'pintura-especiais',
     number: '01',

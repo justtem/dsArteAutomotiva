@@ -7,7 +7,12 @@ import type {
   ServicePackageId,
   VehicleSizeId,
 } from '../types';
-import { formatBRL, formatDuration, sanitizeText } from './formatters';
+import {
+  formatBRL,
+  formatDuration,
+  redactSensitiveIdentifiers,
+  sanitizeText,
+} from './formatters';
 import { buildWhatsAppUrl } from './whatsapp';
 
 export function getAddonPrice(addon: ServiceAddon, vehicleSize: VehicleSizeId): number {
@@ -31,8 +36,10 @@ export function calculateQuoteSummary({
   includePickup,
   vehicleModel,
 }: CalculateQuoteParams): QuoteSummary {
-  const sizeObj = VEHICLE_SIZES.find((s) => s.id === vehicleSize) || VEHICLE_SIZES[1];
-  const pkgObj = SERVICE_PACKAGES.find((p) => p.id === selectedPackageId) || SERVICE_PACKAGES[0];
+  const sizeObj =
+    VEHICLE_SIZES.find((s) => s.id === vehicleSize) ?? VEHICLE_SIZES[1] ?? VEHICLE_SIZES[0];
+  const pkgObj =
+    SERVICE_PACKAGES.find((p) => p.id === selectedPackageId) ?? SERVICE_PACKAGES[0];
   const packagePrice = pkgObj.prices[sizeObj.id];
   const packageMinutes = pkgObj.durationMinutes[sizeObj.id];
 
@@ -50,9 +57,10 @@ export function calculateQuoteSummary({
   const totalPrice = packagePrice + addonsTotal + pickupCost;
   const totalMinutes = packageMinutes + addonsMinutes;
 
-  const cleanModel = sanitizeText(vehicleModel).trim();
+  const cleanModel = redactSensitiveIdentifiers(sanitizeText(vehicleModel)).trim();
+  const ownerFirstName = BUSINESS_CONFIG.ownerName.split(' ')[0] || BUSINESS_CONFIG.ownerName;
   const lines = [
-    `Olá ${BUSINESS_CONFIG.ownerName.split(' ')[0]}! Vim pelo site da ${BUSINESS_CONFIG.name} e gostaria de simular um orçamento de pintura / estética:`,
+    `Olá ${ownerFirstName}! Vim pelo site da ${BUSINESS_CONFIG.name} e gostaria de simular um orçamento de pintura / estética:`,
     `- Categoria / Porte: ${sizeObj.label}${cleanModel ? ` (${cleanModel})` : ''}`,
     `- Serviço principal: ${pkgObj.name} (base ${formatBRL(packagePrice)})`,
   ];

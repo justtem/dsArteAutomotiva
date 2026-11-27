@@ -1,9 +1,10 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import {
   FloatingCartButton,
   Footer,
   MobileBottomBar,
   Navbar,
+  PrivacyNoticeModal,
   QuoteCartModal,
 } from './components/layout';
 import {
@@ -22,6 +23,7 @@ export default function App() {
   const status = useBusinessStatus();
   const simulator = useQuoteSimulator();
   const quoteCart = useQuoteCart();
+  const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
 
   const quickWhatsAppUrl = useMemo(() => {
     const msg = `Olá Diogo! Vim pelo site da ${BUSINESS_CONFIG.name} e gostaria de fazer um orçamento.`;
@@ -71,13 +73,17 @@ export default function App() {
           vehicleModel={simulator.vehicleModel}
           setVehicleModel={simulator.setVehicleModel}
           quoteSummary={simulator.quoteSummary}
+          onOpenPrivacyNotice={() => setIsPrivacyModalOpen(true)}
         />
 
         {/* 04 // CLARO PEDRA (#E4E0D8) com divisória estrutural preta 2px */}
-        <LocationSection status={status} />
+        <LocationSection
+          status={status}
+          onOpenPrivacyNotice={() => setIsPrivacyModalOpen(true)}
+        />
       </main>
 
-      <Footer />
+      <Footer onOpenPrivacyNotice={() => setIsPrivacyModalOpen(true)} />
 
       <FloatingCartButton
         count={quoteCart.cartItems.length}
@@ -91,6 +97,12 @@ export default function App() {
         onClose={() => quoteCart.setIsCartModalOpen(false)}
         onRemoveItem={quoteCart.toggleCartItem}
         onClear={quoteCart.clearCart}
+        onOpenPrivacyNotice={() => setIsPrivacyModalOpen(true)}
+      />
+
+      <PrivacyNoticeModal
+        isOpen={isPrivacyModalOpen}
+        onClose={() => setIsPrivacyModalOpen(false)}
       />
 
       <ToastNotification message={quoteCart.toastMessage} />

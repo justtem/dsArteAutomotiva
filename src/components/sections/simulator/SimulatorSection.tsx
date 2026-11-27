@@ -26,6 +26,7 @@ interface SimulatorSectionProps {
   vehicleModel: string;
   setVehicleModel: (value: string) => void;
   quoteSummary: QuoteSummary;
+  onOpenPrivacyNotice?: () => void;
 }
 
 export function SimulatorSection({
@@ -42,6 +43,7 @@ export function SimulatorSection({
   vehicleModel,
   setVehicleModel,
   quoteSummary,
+  onOpenPrivacyNotice,
 }: SimulatorSectionProps) {
   return (
     <section
@@ -97,7 +99,10 @@ export function SimulatorSection({
           </ScrollReveal>
 
           {/* Direita (5 cols): Talão / Comprovante de Ordem de Serviço */}
-          <QuoteSummaryPanel quoteSummary={quoteSummary} />
+          <QuoteSummaryPanel
+            quoteSummary={quoteSummary}
+            onOpenPrivacyNotice={onOpenPrivacyNotice}
+          />
         </div>
       </div>
     </section>

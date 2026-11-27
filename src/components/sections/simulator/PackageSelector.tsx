@@ -16,7 +16,7 @@ export function PackageSelector({
   onSelectPackage,
 }: PackageSelectorProps) {
   const [expandedPackageId, setExpandedPackageId] = useState<ServicePackageId | null>(
-    SERVICE_PACKAGES[1].id
+    SERVICE_PACKAGES[1]?.id ?? SERVICE_PACKAGES[0].id
   );
 
   return (

@@ -1,13 +1,13 @@
 import type { ServiceAddon, ServicePackage, VehicleSize } from '../types';
 
-export const VEHICLE_SIZES: VehicleSize[] = [
+export const VEHICLE_SIZES: [VehicleSize, ...VehicleSize[]] = [
   { id: 'moto', label: 'Moto / Peças', note: 'Capacete, tanque, carenagem ou rodas' },
   { id: 'hatch', label: 'Hatch', note: 'Ex.: Onix, Polo, Bravo' },
   { id: 'sedan', label: 'Sedan', note: 'Ex.: Corolla, Civic, Cronos' },
   { id: 'suv', label: 'SUV / Picape', note: 'Ex.: Compass, Tracker, Hilux' },
 ];
 
-export const SERVICE_PACKAGES: ServicePackage[] = [
+export const SERVICE_PACKAGES: [ServicePackage, ...ServicePackage[]] = [
   {
     id: 'pintura-verniz',
     name: 'Pintura Automotiva & Verniz (Brilho ou Fosco)',

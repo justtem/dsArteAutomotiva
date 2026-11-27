@@ -1,11 +1,14 @@
+import { useState } from 'react';
 import {
   Car,
   Check,
   CreditCard,
+  EyeOff,
   ExternalLink,
   MapPin,
   MessageCircle,
   Navigation,
+  ShieldCheck,
 } from 'lucide-react';
 import { BUSINESS_CONFIG } from '../../../data';
 import type { BusinessStatus } from '../../../types';
@@ -15,9 +18,12 @@ import { ScheduleTable } from './ScheduleTable';
 
 interface LocationSectionProps {
   status: BusinessStatus;
+  onOpenPrivacyNotice?: () => void;
 }
 
-export function LocationSection({ status }: LocationSectionProps) {
+export function LocationSection({ status, onOpenPrivacyNotice }: LocationSectionProps) {
+  const [isMapLoaded, setIsMapLoaded] = useState(false);
+
   const directWhatsAppUrl = buildWhatsAppUrl(
     BUSINESS_CONFIG.whatsappE164,
     `Olá Diogo! Vim pelo site da ${BUSINESS_CONFIG.name} e gostaria de agendar uma visita na oficina.`
@@ -50,7 +56,7 @@ export function LocationSection({ status }: LocationSectionProps) {
           </div>
         </ScrollReveal>
 
-        {/* Quadro Técnico Estrutural Único (dividido por linhas secas pretas 2px, sem cards soltos) */}
+        {/* Quadro Técnico Estrutural Único */}
         <ScrollReveal direction="up" delayMs={80}>
           <div className="border-2 border-[#111113] bg-[#F8F6F2] grid grid-cols-1 lg:grid-cols-12 divide-y-2 lg:divide-y-0 lg:divide-x-2 divide-[#111113]">
             {/* Coluna Esquerda: Endereço + WhatsApp + Tabela de Horários + Pagamento/Leva e Traz */}
@@ -130,7 +136,7 @@ export function LocationSection({ status }: LocationSectionProps) {
               </div>
             </div>
 
-            {/* Coluna Direita: Barra de Rotas GPS acoplada à moldura preta do Mapa */}
+            {/* Coluna Direita: Barra de Rotas GPS + Fachada Click-to-Load do Mapa */}
             <div className="lg:col-span-7 flex flex-col justify-between">
               <div className="p-5 sm:p-6 bg-[#EFECE6] border-b-2 border-[#111113]">
                 <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-4">
@@ -142,6 +148,17 @@ export function LocationSection({ status }: LocationSectionProps) {
                       Rua Geraldo Pereira da Costa, 290 — João Bonito
                     </h3>
                   </div>
+
+                  {isMapLoaded && (
+                    <button
+                      type="button"
+                      onClick={() => setIsMapLoaded(false)}
+                      className="self-start sm:self-auto btn-ink-outline inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-mono font-bold uppercase tracking-wider"
+                    >
+                      <EyeOff className="w-3.5 h-3.5" aria-hidden="true" />
+                      <span>Desativar mapa</span>
+                    </button>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -167,15 +184,65 @@ export function LocationSection({ status }: LocationSectionProps) {
                 </div>
               </div>
 
-              {/* Google Maps integrado em moldura estrutural clara */}
-              <div className="w-full bg-[#E4E0D8] h-[300px] sm:h-[460px] lg:flex-1 lg:min-h-[440px]">
-                <iframe
-                  title="Mapa de localização DS Arte Automotiva - Valença RJ"
-                  src={BUSINESS_CONFIG.googleMapsEmbedUrl}
-                  className="w-full h-full border-0 block"
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
+              {/* Quadro do Mapa com proteção Click-to-Load (LGPD Privacy by Default) */}
+              <div className="relative w-full bg-[#E4E0D8] bg-concrete-grain h-[320px] sm:h-[460px] lg:flex-1 lg:min-h-[440px]">
+                {isMapLoaded ? (
+                  <iframe
+                    title="Mapa de localização DS Arte Automotiva - Valença RJ"
+                    src={BUSINESS_CONFIG.googleMapsEmbedUrl}
+                    className="w-full h-full border-0 block"
+                    loading="lazy"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+                  />
+                ) : (
+                  <div className="w-full h-full flex flex-col items-center justify-center text-center p-6 sm:p-10">
+                    <div className="max-w-md bg-[#F8F6F2] border-2 border-[#111113] shadow-[0_4px_0px_#111113] sm:shadow-[6px_6px_0px_#111113] p-5 sm:p-6 space-y-4">
+                      <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-[#111113] text-[#F8F6F2] font-mono text-[10px] font-bold uppercase tracking-wider">
+                        <MapPin className="w-3.5 h-3.5 text-[#0EA5E9]" aria-hidden="true" />
+                        <span>Valença - RJ • CEP {BUSINESS_CONFIG.cep}</span>
+                      </div>
+
+                      <div>
+                        <h4 className="font-display text-2xl sm:text-3xl font-extrabold uppercase tracking-tight leading-none text-[#111113]">
+                          Mapa Interativo Sob Demanda
+                        </h4>
+                        <p className="text-xs sm:text-sm text-[#27272A] mt-2 leading-relaxed">
+                          Por privacidade (LGPD), o mapa do Google não carrega automaticamente para
+                          evitar envio de IP e cookies de terceiros sem sua ação.
+                        </p>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => setIsMapLoaded(true)}
+                        className="btn-ink-primary w-full inline-flex items-center justify-center gap-2 px-4 py-3 text-xs sm:text-sm font-bold uppercase tracking-wider min-h-[46px]"
+                      >
+                        <MapPin className="w-4 h-4 text-[#0EA5E9] shrink-0" aria-hidden="true" />
+                        <span>Ativar Mapa Interativo do Google</span>
+                      </button>
+
+                      <p className="text-[11px] text-[#52525B] leading-relaxed flex items-start justify-center gap-1.5 text-left">
+                        <ShieldCheck
+                          className="w-3.5 h-3.5 text-[#0369A1] shrink-0 mt-0.5"
+                          aria-hidden="true"
+                        />
+                        <span>
+                          Ao ativar, seu navegador se conectará aos servidores da Google LLC (EUA).{' '}
+                          {onOpenPrivacyNotice && (
+                            <button
+                              type="button"
+                              onClick={onOpenPrivacyNotice}
+                              className="underline font-semibold text-[#0369A1] hover:text-[#111113] focus-visible:outline-2 focus-visible:outline-[#0369A1]"
+                            >
+                              Ver Aviso de Privacidade
+                            </button>
+                          )}
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>

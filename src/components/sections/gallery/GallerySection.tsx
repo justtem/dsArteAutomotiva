@@ -65,9 +65,7 @@ export function GallerySection({ cartItems, onToggleCartItem }: GallerySectionPr
   }, [activeCategory]);
 
   const activeItem =
-    activeModalIndex !== null && filteredItems[activeModalIndex]
-      ? filteredItems[activeModalIndex]
-      : null;
+    (activeModalIndex !== null ? filteredItems[activeModalIndex] : undefined) ?? null;
 
   const openModal = (index: number, triggerEl: HTMLButtonElement) => {
     lastTriggerRef.current = triggerEl;

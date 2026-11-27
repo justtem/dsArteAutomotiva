@@ -11,6 +11,12 @@ export interface BusinessConfig {
   name: string;
   shortName: string;
   ownerName: string;
+  controllerDisplayName: string;
+  legalName?: string;
+  cnpj?: string;
+  privacyEmail?: string;
+  privacyWhatsappMessage: string;
+  privacyUpdatedAt: string;
   tagline: string;
   logoUrl: string;
   specialtiesHighlight: string[];

@@ -2,7 +2,7 @@ import { useEffect, useRef, type TouchEvent } from 'react';
 import { Check, ChevronLeft, ChevronRight, MessageCircle, Plus, X } from 'lucide-react';
 import { BUSINESS_CONFIG } from '../../../data';
 import type { GalleryItem } from '../../../types';
-import { buildWhatsAppUrl } from '../../../utils';
+import { buildWhatsAppUrl, isSafeImageSrc } from '../../../utils';
 import { GalleryIllustration } from '../../illustrations';
 
 interface GalleryLightboxProps {
@@ -55,6 +55,9 @@ export function GalleryLightbox({
       else onPrev();
     }
   };
+
+  const safeImageUrl = isSafeImageSrc(item.imageUrl);
+  const catalogId = item.catalogId;
 
   const whatsappUrl = buildWhatsAppUrl(
     BUSINESS_CONFIG.whatsappE164,
@@ -117,8 +120,8 @@ export function GalleryLightbox({
         {/* Corpo */}
         <div className="overflow-y-auto p-4 sm:p-5 space-y-4 sm:space-y-5">
           <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] bg-[#0B0B0D] border border-[#27272F] rounded-[2px] overflow-hidden">
-            {item.imageUrl ? (
-              <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover" />
+            {safeImageUrl ? (
+              <img src={safeImageUrl} alt={item.title} className="w-full h-full object-cover" />
             ) : (
               <GalleryIllustration visualKey={item.visualKey} />
             )}
@@ -178,10 +181,10 @@ export function GalleryLightbox({
           </div>
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-            {item.catalogId && onToggleCart && (
+            {catalogId !== undefined && onToggleCart && (
               <button
                 type="button"
-                onClick={() => onToggleCart(item.catalogId!)}
+                onClick={() => onToggleCart(catalogId)}
                 className={`inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-[2px] font-mono text-xs font-bold uppercase tracking-wider border min-h-[44px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0EA5E9] ${
                   isInCart
                     ? 'bg-[#0EA5E9] text-[#0B0B0D] border-[#0EA5E9]'

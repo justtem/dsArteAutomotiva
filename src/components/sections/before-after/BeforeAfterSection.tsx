@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type ChangeEvent } from 'react';
 import { ChevronRight, ClipboardPlus, Upload } from 'lucide-react';
 import { BEFORE_AFTER_CASES } from '../../../data';
 import type { BeforeAfterCaseId, ServiceAddonId, ServicePackageId } from '../../../types';
+import { validateAndSanitizeLocalImage } from '../../../utils';
 import { ScrollReveal } from '../../ui';
 import { ComparisonSlider } from './ComparisonSlider';
 import { CustomPhotoUploader } from './CustomPhotoUploader';
@@ -26,39 +27,72 @@ export function BeforeAfterSection({
   const [photosByCase, setPhotosByCase] = useState<Partial<Record<BeforeAfterCaseId, PhotoPair>>>(
     {}
   );
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [isProcessingPhoto, setIsProcessingPhoto] = useState(false);
   const createdUrlsRef = useRef<string[]>([]);
 
   const activeCase =
-    BEFORE_AFTER_CASES.find((item) => item.id === activeCaseId) || BEFORE_AFTER_CASES[0];
+    BEFORE_AFTER_CASES.find((item) => item.id === activeCaseId) ?? BEFORE_AFTER_CASES[0];
 
   const currentPair = photosByCase[activeCase.id] || { before: null, after: null };
+  const recommendedCatalogId = activeCase.recommendedCatalogId;
+
+  const revokeTrackedUrl = (urlToRevoke: string | null | undefined) => {
+    if (!urlToRevoke) return;
+    URL.revokeObjectURL(urlToRevoke);
+    createdUrlsRef.current = createdUrlsRef.current.filter((u) => u !== urlToRevoke);
+  };
 
   useEffect(() => {
-    const urls = createdUrlsRef.current;
     return () => {
-      urls.forEach((url) => URL.revokeObjectURL(url));
+      createdUrlsRef.current.forEach((url) => URL.revokeObjectURL(url));
+      createdUrlsRef.current = [];
     };
   }, []);
 
-  const handleFileChange = (side: 'before' | 'after', event: ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (
+    side: 'before' | 'after',
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
-    if (!file || !file.type.startsWith('image/')) return;
-    const url = URL.createObjectURL(file);
-    createdUrlsRef.current.push(url);
+    // Limpa o input imediatamente para permitir reenviar o mesmo arquivo após limpeza
+    event.target.value = '';
+    if (!file) return;
+
+    const targetCaseId = activeCase.id;
+    setUploadError(null);
+    setIsProcessingPhoto(true);
+
+    const validation = await validateAndSanitizeLocalImage(file);
+    setIsProcessingPhoto(false);
+
+    if (!validation.ok) {
+      setUploadError(validation.error);
+      return;
+    }
+
+    const previousUrl = photosByCase[targetCaseId]?.[side];
+    revokeTrackedUrl(previousUrl);
+    createdUrlsRef.current.push(validation.objectUrl);
 
     setPhotosByCase((prev) => {
-      const existing = prev[activeCase.id] || { before: null, after: null };
+      const existing = prev[targetCaseId] || { before: null, after: null };
       return {
         ...prev,
-        [activeCase.id]: {
+        [targetCaseId]: {
           ...existing,
-          [side]: url,
+          [side]: validation.objectUrl,
         },
       };
     });
   };
 
   const resetCurrentTabPhotos = () => {
+    const existing = photosByCase[activeCase.id];
+    revokeTrackedUrl(existing?.before);
+    revokeTrackedUrl(existing?.after);
+    setUploadError(null);
+
     setPhotosByCase((prev) => ({
       ...prev,
       [activeCase.id]: { before: null, after: null },
@@ -90,7 +124,10 @@ export function BeforeAfterSection({
 
             <button
               type="button"
-              onClick={() => setShowCustomUploader((prev) => !prev)}
+              onClick={() => {
+                setShowCustomUploader((prev) => !prev);
+                setUploadError(null);
+              }}
               aria-expanded={showCustomUploader}
               className={`self-start lg:self-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-bold uppercase tracking-wider min-h-[44px] ${
                 showCustomUploader ? 'btn-cyan-stamp' : 'btn-ink-outline'
@@ -109,6 +146,8 @@ export function BeforeAfterSection({
               activeTabLabel={activeCase.tabLabel}
               customBeforeUrl={currentPair.before}
               customAfterUrl={currentPair.after}
+              uploadError={uploadError}
+              isProcessing={isProcessingPhoto}
               onFileChange={handleFileChange}
               onReset={resetCurrentTabPhotos}
             />
@@ -133,6 +172,7 @@ export function BeforeAfterSection({
                   onClick={(e) => {
                     setActiveCaseId(item.id);
                     setSplitPercent(50);
+                    setUploadError(null);
                     e.currentTarget.scrollIntoView({
                       behavior: 'smooth',
                       inline: 'center',
@@ -172,7 +212,7 @@ export function BeforeAfterSection({
               />
             </div>
 
-            {/* Coluna Técnica Editorial (sem aparência de card SaaS) */}
+            {/* Coluna Técnica Editorial */}
             <div
               key={activeCase.id}
               className="animate-panel-switch lg:col-span-4 border-t-2 border-[#111113] pt-5 flex flex-col justify-between"
@@ -234,10 +274,10 @@ export function BeforeAfterSection({
                   <ChevronRight className="w-4 h-4 shrink-0" aria-hidden="true" />
                 </button>
 
-                {activeCase.recommendedCatalogId && (
+                {recommendedCatalogId !== undefined && (
                   <button
                     type="button"
-                    onClick={() => onAddCatalogCaseToCart(activeCase.recommendedCatalogId!)}
+                    onClick={() => onAddCatalogCaseToCart(recommendedCatalogId)}
                     className="btn-ink-outline w-full inline-flex items-center justify-center gap-2 px-5 py-3 text-xs font-bold uppercase tracking-wider min-h-[44px]"
                   >
                     <ClipboardPlus className="w-4 h-4 shrink-0" aria-hidden="true" />

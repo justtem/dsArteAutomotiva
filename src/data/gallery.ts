@@ -11,6 +11,8 @@ export const GALLERY_CATEGORIES: GalleryCategory[] = [
 /**
  * GALERIA TÉCNICA & PORTFÓLIO UNIFICADO (Pinturas Personalizadas & Estética DS Arte Automotiva)
  * Para substituir qualquer ilustração por foto real, adicione `imageUrl: '/fotos/sua-foto.webp'`.
+ * PRIVACIDADE / LGPD: antes de versionar fotos reais em `public/fotos/`, remova todos os metadados EXIF/GPS
+ * e borre/tarje placas legíveis, documentos ou rostos de terceiros.
  */
 export const GALLERY_ITEMS: GalleryItem[] = [
   {

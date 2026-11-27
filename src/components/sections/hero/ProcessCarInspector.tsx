@@ -20,12 +20,15 @@ export function ProcessCarInspector({
     0,
     PROCESS_HOTSPOTS.findIndex((item) => item.id === activeHotspotId)
   );
-  const active = PROCESS_HOTSPOTS[activeIndex] || PROCESS_HOTSPOTS[0];
+  const active = PROCESS_HOTSPOTS[activeIndex] ?? PROCESS_HOTSPOTS[0];
   const touchStartX = useRef<number | null>(null);
 
   const selectByDelta = (delta: number) => {
     const nextIdx = (activeIndex + delta + PROCESS_HOTSPOTS.length) % PROCESS_HOTSPOTS.length;
-    onSelectHotspot(PROCESS_HOTSPOTS[nextIdx].id);
+    const nextHotspot = PROCESS_HOTSPOTS[nextIdx];
+    if (nextHotspot) {
+      onSelectHotspot(nextHotspot.id);
+    }
   };
 
   const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {

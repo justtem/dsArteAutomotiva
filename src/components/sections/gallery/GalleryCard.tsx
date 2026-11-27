@@ -1,5 +1,6 @@
 import { Check, Clock, Eye, Plus } from 'lucide-react';
 import type { GalleryItem } from '../../../types';
+import { isSafeImageSrc } from '../../../utils';
 import { GalleryIllustration } from '../../illustrations';
 
 interface GalleryCardProps {
@@ -21,6 +22,8 @@ export function GalleryCard({
 }: GalleryCardProps) {
   const isFlameCategory =
     item.category === 'Candy & Especiais' || item.category === 'Aerografia & Custom';
+  const safeImageUrl = isSafeImageSrc(item.imageUrl);
+  const catalogId = item.catalogId;
 
   if (variant === 'panorama') {
     return (
@@ -31,9 +34,9 @@ export function GalleryCard({
           className="lg:col-span-7 relative w-full aspect-[16/10] lg:aspect-auto lg:min-h-[320px] bg-[#0B0B0D] overflow-hidden border-b lg:border-b-0 lg:border-r border-[#27272F] text-left focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#0EA5E9]"
         >
           <div className="w-full h-full transition-transform duration-300 ease-out group-hover:scale-[1.03]">
-            {item.imageUrl ? (
+            {safeImageUrl ? (
               <img
-                src={item.imageUrl}
+                src={safeImageUrl}
                 alt={item.title}
                 className="w-full h-full object-cover"
                 loading="lazy"
@@ -85,10 +88,10 @@ export function GalleryCard({
               </span>
             </div>
 
-            {item.catalogId && onToggleCart && (
+            {catalogId !== undefined && onToggleCart && (
               <button
                 type="button"
-                onClick={() => onToggleCart(item.catalogId!)}
+                onClick={() => onToggleCart(catalogId)}
                 className={`w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-[2px] font-mono text-xs font-bold uppercase tracking-wider border transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0EA5E9] ${
                   isInCart
                     ? 'bg-[#0EA5E9] text-[#0B0B0D] border-[#0EA5E9]'
@@ -119,9 +122,9 @@ export function GalleryCard({
         {/* Altura padronizada por breakpoint para alinhar títulos e rodapés na mesma fileira (7+5 / 5+7 / 6+6) */}
         <div className="relative w-full h-[220px] sm:h-[250px] lg:h-[285px] xl:h-[310px] shrink-0 bg-[#0B0B0D] overflow-hidden border-b border-[#27272F]">
           <div className="w-full h-full flex items-center justify-center transition-transform duration-300 ease-out group-hover:scale-[1.03]">
-            {item.imageUrl ? (
+            {safeImageUrl ? (
               <img
-                src={item.imageUrl}
+                src={safeImageUrl}
                 alt={item.title}
                 className="w-full h-full object-cover object-center"
                 loading="lazy"
@@ -164,11 +167,11 @@ export function GalleryCard({
         </div>
       </button>
 
-      {item.catalogId && onToggleCart && (
+      {catalogId !== undefined && onToggleCart && (
         <div className="px-5 pb-5 pt-0 mt-auto">
           <button
             type="button"
-            onClick={() => onToggleCart(item.catalogId!)}
+            onClick={() => onToggleCart(catalogId)}
             className={`w-full inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-[2px] font-mono text-xs font-bold uppercase tracking-wider border transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0EA5E9] ${
               isInCart
                 ? 'bg-[#0EA5E9] text-[#0B0B0D] border-[#0EA5E9]'

@@ -1,39 +1,37 @@
 import { useState } from 'react';
-import { Check, Clock, Copy, MessageCircle } from 'lucide-react';
+import { Check, Clock, Copy, MessageCircle, ShieldCheck } from 'lucide-react';
 import { BUSINESS_CONFIG } from '../../../data';
 import type { QuoteSummary } from '../../../types';
 import { formatBRL, formatDuration } from '../../../utils';
 
 interface QuoteSummaryPanelProps {
   quoteSummary: QuoteSummary;
+  onOpenPrivacyNotice?: () => void;
 }
 
 /**
  * Painel lateral desenhado como um Talão / Comprovante de Ordem de Serviço (OS).
  * No mobile usa sombra apenas inferior para zero overflow horizontal; em sm+ usa sombra deslocada 6px.
  */
-export function QuoteSummaryPanel({ quoteSummary }: QuoteSummaryPanelProps) {
+export function QuoteSummaryPanel({ quoteSummary, onOpenPrivacyNotice }: QuoteSummaryPanelProps) {
   const [copied, setCopied] = useState(false);
+  const [copyUnsupported, setCopyUnsupported] = useState(false);
 
   const handleCopyMessage = async () => {
     try {
-      if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(quoteSummary.message);
-      } else {
-        const temp = document.createElement('textarea');
-        temp.value = quoteSummary.message;
-        temp.setAttribute('readonly', '');
-        temp.style.position = 'absolute';
-        temp.style.left = '-9999px';
-        document.body.appendChild(temp);
-        temp.select();
-        document.execCommand('copy');
-        document.body.removeChild(temp);
+      if (!navigator.clipboard?.writeText) {
+        setCopyUnsupported(true);
+        setTimeout(() => setCopyUnsupported(false), 3200);
+        return;
       }
+      await navigator.clipboard.writeText(quoteSummary.message);
       setCopied(true);
+      setCopyUnsupported(false);
       setTimeout(() => setCopied(false), 2400);
     } catch {
       setCopied(false);
+      setCopyUnsupported(true);
+      setTimeout(() => setCopyUnsupported(false), 3200);
     }
   };
 
@@ -149,14 +147,38 @@ export function QuoteSummaryPanel({ quoteSummary }: QuoteSummaryPanelProps) {
             ) : (
               <Copy className="w-4 h-4" aria-hidden="true" />
             )}
-            <span>{copied ? 'Mensagem copiada!' : 'Copiar mensagem'}</span>
+            <span>
+              {copied
+                ? 'Mensagem copiada!'
+                : copyUnsupported
+                  ? 'Selecione o texto acima para copiar'
+                  : 'Copiar mensagem'}
+            </span>
           </button>
         </div>
 
-        <p className="text-[11px] text-[#3F3F46] leading-relaxed">
-          Sem pagamento antecipado no site. O orçamento final é confirmado no WhatsApp ou na
-          avaliação técnica da peça/veículo na oficina.
-        </p>
+        <div className="space-y-2 text-[11px] text-[#3F3F46] leading-relaxed pt-1 border-t border-dashed border-[#111113]/30">
+          <p>
+            Sem pagamento antecipado no site. O orçamento final é confirmado no WhatsApp ou na
+            avaliação técnica da peça/veículo na oficina.
+          </p>
+          <p className="flex items-start gap-1.5 text-[#52525B]">
+            <ShieldCheck className="w-3.5 h-3.5 text-[#0369A1] shrink-0 mt-0.5" aria-hidden="true" />
+            <span>
+              Ao clicar em <strong>Agendar no WhatsApp</strong>, você será redirecionado à
+              plataforma externa WhatsApp (Meta) exclusivamente para atendimento de orçamento.{' '}
+              {onOpenPrivacyNotice && (
+                <button
+                  type="button"
+                  onClick={onOpenPrivacyNotice}
+                  className="underline font-semibold text-[#0369A1] hover:text-[#111113] focus-visible:outline-2 focus-visible:outline-[#0369A1]"
+                >
+                  Aviso de Privacidade
+                </button>
+              )}
+            </span>
+          </p>
+        </div>
       </div>
     </aside>
   );

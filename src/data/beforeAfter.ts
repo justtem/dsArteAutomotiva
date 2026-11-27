@@ -4,8 +4,10 @@ import type { BeforeAfterCase } from '../types';
  * DICA PARA FOTOS REAIS DE ANTES E DEPOIS:
  * Quando quiser exibir fotos reais fixas por aba, basta preencher `beforeImageUrl` e `afterImageUrl`
  * (ex.: "/fotos/farol-antes.webp" e "/fotos/farol-depois.webp") em qualquer item abaixo.
+ * PRIVACIDADE / LGPD: antes de publicar fotos reais em `public/fotos/`, remova metadados EXIF/GPS
+ * do arquivo, oculte/tarje placas de veículos, rostos ou fachadas residenciais e garanta autorização do cliente.
  */
-export const BEFORE_AFTER_CASES: BeforeAfterCase[] = [
+export const BEFORE_AFTER_CASES: [BeforeAfterCase, ...BeforeAfterCase[]] = [
   {
     id: 'pintura-hidrografica',
     tabLabel: 'Pintura Hidrográfica',

@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState, type PointerEvent } from 'react';
 import { MoveHorizontal } from 'lucide-react';
 import type { BeforeAfterCase } from '../../../types';
+import { isSafeImageSrc } from '../../../utils';
 import { BeforeAfterIllustration } from '../../illustrations';
 
 interface ComparisonSliderProps {
@@ -23,8 +24,10 @@ export function ComparisonSlider({
   const [isDragging, setIsDragging] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
 
-  const resolvedBeforeUrl = customBeforeUrl || activeCase.beforeImageUrl || null;
-  const resolvedAfterUrl = customAfterUrl || activeCase.afterImageUrl || null;
+  const resolvedBeforeUrl =
+    isSafeImageSrc(customBeforeUrl) || isSafeImageSrc(activeCase.beforeImageUrl);
+  const resolvedAfterUrl =
+    isSafeImageSrc(customAfterUrl) || isSafeImageSrc(activeCase.afterImageUrl);
   const hasAnyUploadedPhoto = Boolean(customBeforeUrl || customAfterUrl);
   const hasAnyRealPhoto = Boolean(resolvedBeforeUrl || resolvedAfterUrl);
 

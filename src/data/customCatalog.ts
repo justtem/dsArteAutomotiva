@@ -37,6 +37,7 @@ export const CUSTOM_CATALOG_FILTERS: { id: CustomCatalogCategory; label: string 
 /**
  * CATÁLOGO DE 15 SERVIÇOS DA DS ARTE AUTOMOTIVA (Diogo Soares)
  * DICA: Para adicionar foto real em qualquer card, basta definir `imageUrl: '/fotos/nome-da-foto.webp'`.
+ * PRIVACIDADE / LGPD: remova metadados EXIF/GPS e tarje placas/rostos identificáveis antes de publicar fotos reais.
  */
 export const CUSTOM_CATALOG_SERVICES: CustomCatalogService[] = [
   {
