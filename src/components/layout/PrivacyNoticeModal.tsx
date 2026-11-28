@@ -172,7 +172,9 @@ export function PrivacyNoticeModal({ isOpen, onClose }: PrivacyNoticeModalProps)
               Nos termos do <strong>Art. 18 da LGPD</strong>, você pode solicitar gratuitamente a
               qualquer momento: confirmação da existência de tratamento, acesso aos seus dados,
               correção de dados incompletos/inexatos, anonimização ou eliminação de dados
-              desnecessários e informações sobre compartilhamento.
+              desnecessários, portabilidade (quando aplicável), informações sobre compartilhamento,
+              revogação de consentimento (quando aplicável) e peticionamento perante a Autoridade
+              Nacional de Proteção de Dados — ANPD (Art. 18, § 1º).
             </p>
           </section>
 

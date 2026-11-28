@@ -39,5 +39,5 @@
 ## 4. Responsabilidades Organizacionais Fora do Código (Controlador)
 
 1. **Segurança do aparelho e conta WhatsApp Business (Art. 46):** manter PIN de verificação em duas etapas ativo no WhatsApp, bloqueio biométrico/senha no smartphone e sessões WhatsApp Web, além de controle de backups em nuvem.
-2. ** Ciclo de retenção e descarte no WhatsApp (Arts. 15 e 16):** definir e aplicar rotina periódica de arquivamento/exclusão de orçamentos não contratados e atendimento em prazo razoável às solicitações do Art. 18 recebidas pelo canal oficial.
+2. **Ciclo de retenção e descarte no WhatsApp (Arts. 15 e 16):** definir e aplicar rotina periódica de arquivamento/exclusão de orçamentos não contratados e atendimento em prazo razoável às solicitações do Art. 18 recebidas pelo canal oficial.
 3. **Publicação futura de fotos reais no portfólio:** antes de incluir imagens em `public/fotos/`, remover metadados EXIF/GPS, tarjar placas e rostos identificáveis e colher autorização específica quando aplicável.
